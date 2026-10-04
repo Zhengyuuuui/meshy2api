@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>meshy2api Console</title>
+<style>
+:root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#e6edf3; --muted:#8b949e; --accent:#1f6feb; --accent2:#58a6ff; --green:#3fb950; --red:#f85149; --yellow:#d29922; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+header { background:var(--card); border-bottom:1px solid var(--border); padding:16px 32px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; }
+header h1 { font-size:18px; font-weight:600; display:flex; align-items:center; gap:10px; }
+.badge { color:var(--muted); font-size:12px; }
+.dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; }
+.dot-ok { background:var(--green); box-shadow:0 0 6px var(--green); }
+.dot-warn { background:var(--yellow); }
+.dot-bad { background:var(--red); }
+nav { display:flex; gap:4px; margin-left:24px; }
+nav a { color:var(--muted); text-decoration:none; padding:6px 12px; border-radius:8px; font-size:13px; cursor:pointer; }
+nav a:hover { color:var(--text); background:rgba(255,255,255,.05); }
+nav a.active { color:var(--text); background:rgba(88,166,255,.15); }
+main { max-width:1280px; margin:0 auto; padding:24px 32px; }
+.page { display:none; }
+.page.active { display:block; }
+.section { margin-bottom:28px; }
+.section-title { font-size:13px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; }
+.card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px; }
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:24px; }
+.stat { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px 20px; }
+.stat-value { font-size:26px; font-weight:700; }
+.stat-value small { font-size:14px; font-weight:400; color:var(--muted); }
+.stat-label { font-size:12px; color:var(--muted); margin-top:2px; }
+.reg-row { display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end; }
+.field { display:flex; flex-direction:column; gap:4px; }
+.field label { font-size:12px; color:var(--muted); }
+.field input, .field select, .field textarea { background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:8px 12px; color:var(--text); font-size:14px; }
+.field input:focus, .field select:focus, .field textarea:focus { outline:none; border-color:var(--accent); }
+.btn { padding:8px 16px; border-radius:8px; border:none; cursor:pointer; font-size:14px; font-weight:500; transition:all .15s; }
+.btn-primary { background:var(--accent); color:#fff; }
+.btn-primary:hover { background:var(--accent2); }
+.btn-primary:disabled { opacity:.5; cursor:not-allowed; }
+.btn-sm { padding:5px 12px; font-size:12px; border-radius:6px; }
+.btn-outline { background:transparent; border:1px solid var(--border); color:var(--text); }
+.btn-outline:hover { border-color:var(--accent); }
+table { width:100%; border-collapse:collapse; }
+th { text-align:left; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; padding:8px 12px; border-bottom:1px solid var(--border); }
+td { padding:9px 12px; border-bottom:1px solid var(--border); font-size:13px; }
+tr:last-child td { border-bottom:none; }
+.tag { display:inline-block; padding:1px 8px; border-radius:10px; font-size:11px; font-weight:600; }
+.tag-image { background:rgba(88,166,255,.15); color:var(--accent2); }
+.tag-3d { background:rgba(163,113,247,.18); color:#c9a6ff; }
+.tag-chat { background:rgba(63,185,80,.15); color:var(--green); }
+.tag-running { background:rgba(210,153,34,.15); color:var(--yellow); }
+.tag-free { background:rgba(63,185,80,.15); color:var(--green); }
+.tag-pro { background:rgba(163,113,247,.18); color:#c9a6ff; border:1px solid rgba(163,113,247,.35); }
+.tag-succeeded { background:rgba(63,185,80,.15); color:var(--green); }
+.tag-failed { background:rgba(248,81,73,.15); color:var(--red); }
+.tag-recovering { background:rgba(88,166,255,.15); color:var(--accent2); }
+.note { font-size:12px; color:var(--muted); margin-top:10px; }
+.empty { text-align:center; color:var(--muted); padding:28px; }
+.gallery { display:flex; flex-wrap:wrap; gap:12px; margin-top:14px; }
+.gallery img { width:180px; height:180px; object-fit:cover; border-radius:10px; border:1px solid var(--border); cursor:zoom-in; transition:transform .15s; }
+.gallery img:hover { transform:scale(1.03); }
+.gallery .cell { position:relative; }
+.gallery .meta { font-size:11px; color:var(--muted); margin-top:4px; max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.mono { font-family:ui-monospace,Menlo,monospace; font-size:11px; color:var(--muted); }
+.log { background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:12px; font-family:ui-monospace,Menlo,monospace; font-size:12px; max-height:260px; overflow-y:auto; line-height:1.7; }
+.log .t { color:var(--muted); margin-right:8px; }
+.log .ok { color:var(--green); }
+.log .err { color:var(--red); }
+.log .info { color:var(--accent2); }
+.progress-wrap { background:var(--bg); border-radius:6px; height:8px; overflow:hidden; width:120px; display:inline-block; vertical-align:middle; }
+.progress-bar { background:var(--accent2); height:100%; transition:width .5s; }
+.toast { position:fixed; top:20px; right:20px; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 18px; z-index:1000; font-size:13px; animation:slideIn .3s ease; box-shadow:0 8px 24px rgba(0,0,0,.4); }
+.toast-ok { border-color:var(--green); }
+.toast-err { border-color:var(--red); }
+@keyframes slideIn { from{transform:translateX(100%);opacity:0} to{transform:translateX(0);opacity:1} }
+.kv { display:grid; grid-template-columns:200px 1fr; gap:6px 16px; font-size:13px; }
+.kv .k { color:var(--muted); }
+#lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,.85); z-index:2000; align-items:center; justify-content:center; cursor:zoom-out; }
+#lightbox img { max-width:92vw; max-height:92vh; border-radius:8px; }
+a.link { color:var(--accent2); text-decoration:none; }
+a.link:hover { text-decoration:underline; }
+</style>
+</head>
+<body>
+<header>
+  <div style="display:flex;align-items:center">
+    <h1><span class="dot dot-ok" id="healthDot"></span>meshy2api</h1>
+    <nav>
+      <a class="active" data-page="overview">总览</a>
+      <a data-page="image">生图</a>
+      <a data-page="model3d">3D</a>
+      <a data-page="pipeline">动画</a>
+      <a data-page="chat">对话</a>
+      <a data-page="accounts">账号</a>
+      <a data-page="logs">日志</a>
+    </nav>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px">
+    <span class="badge" id="sessBadge">session: -</span>
+    <span class="badge" id="creditsBadge">credits: -</span>
+    <span class="badge" id="lastRefresh"></span>
+  </div>
+</header>
+<main>
+
+<!-- ============ OVERVIEW ============ -->
+<div class="page active" id="page-overview">
+  <div class="stats">
+    <div class="stat"><div class="stat-value" id="stCredits">-<small> / -</small></div><div class="stat-label">可用积分 (free / total)</div></div>
+    <div class="stat"><div class="stat-value" id="stJobs">0</div><div class="stat-label">3D 任务总数</div></div>
+    <div class="stat"><div class="stat-value" id="stRunning">0</div><div class="stat-label">进行中</div></div>
+    <div class="stat"><div class="stat-value" id="stSpent">0</div><div class="stat-label">累计消耗积分(记录内)</div></div>
+    <div class="stat"><div class="stat-value" id="stQueue">0</div><div class="stat-label">turn 队列等待</div></div>
+  </div>
+  <div class="section">
+    <div class="section-title">Bridge 状态</div>
+    <div class="card"><div class="kv" id="bridgeKv"></div></div>
+  </div>
+  <div class="section">
+    <div class="section-title">当前账号</div>
+    <div class="card">
+      <div class="stats" style="margin-bottom:14px">
+        <div class="stat" style="padding:12px 18px"><div class="stat-value" id="ovAccEmail" style="font-size:16px">-</div><div class="stat-label">网关账号</div></div>
+        <div class="stat" style="padding:12px 18px"><div class="stat-value" id="ovAccCredits" style="font-size:22px">-</div><div class="stat-label">可用积分</div></div>
+        <div class="stat" style="padding:12px 18px;border:1px solid var(--yellow,#e0b040)"><div class="stat-value" id="ovMonthlyBucket" style="font-size:22px;color:var(--yellow,#e0b040)">-</div><div class="stat-label">月度积分(1号清零)</div></div>
+        <div class="stat" style="padding:12px 18px"><div class="stat-value" id="ovPermanentBucket" style="font-size:22px;color:var(--green)">-</div><div class="stat-label">永久积分</div></div>
+        <div class="stat" style="padding:12px 18px"><div class="stat-value" id="ovRefillCountdown" style="font-size:22px;color:var(--yellow,#e0b040)">-</div><div class="stat-label" id="ovRefillDate">下次月度刷新</div></div>
+        <div class="stat" style="padding:12px 18px"><div class="stat-value" id="ovTokenCountdown" style="font-size:22px">-</div><div class="stat-label">Token 到期倒计时</div></div>
+      </div>
+      <div class="note" id="ovAccountNote"></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">可用模型 <button class="btn btn-outline btn-sm" onclick="loadModels()">刷新</button></div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table>
+        <thead><tr><th style="width:220px">模型 ID</th><th style="width:80px">类型</th><th>计费 (credits)</th></tr></thead>
+        <tbody id="modelsBody"><tr><td colspan="3" class="empty">加载中...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ IMAGE ============ -->
+<div class="page" id="page-image">
+  <div class="section">
+    <div class="section-title">生图工作台 <span class="badge" id="imgQuotaBadge" style="font-weight:400">quota: -</span></div>
+    <div class="card">
+      <div class="reg-row" style="margin-bottom:10px">
+        <div class="field" style="flex:1;min-width:280px"><label>Prompt(建议带 "Use the text_to_image tool:")</label><input id="imgPrompt" placeholder="Use the text_to_image tool: a tiny orange kitten on a windowsill" style="width:100%"></div>
+        <div class="field"><label>模型</label><select id="imgModel"></select></div>
+        <div class="field"><label>比例</label>
+          <select id="imgAspect"></select>
+        </div>
+        <div class="field"><label>张数</label><input id="imgN" type="number" min="1" max="8" value="1" style="width:64px"></div>
+        <div class="field"><label>画质</label>
+          <select id="imgQuality"></select>
+        </div>
+        <div class="field"><label>风格</label>
+          <select id="imgStyle">
+            <option value="">(无)</option>
+            <option value="japanese-anime">Japanese Anime（日漫）</option>
+            <option value="western-realism">Western Realism（写实）</option>
+            <option value="chibi-blind-box">Chibi Blind Box（Q版盲盒）</option>
+            <option value="vinyl-figure">Vinyl Figure（潮玩）</option>
+            <option value="brick-figure">Brick Figure（积木）</option>
+          </select>
+        </div>
+        <div class="field"><label>姿势</label>
+          <select id="imgPose"><option value="">无</option><option value="a">A 姿势</option><option value="t">T 姿势</option></select>
+        </div>
+        <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)"><input type="checkbox" id="imgMultiView"> 多视图</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)"><input type="checkbox" id="imgStream" checked> 流式</label>
+        <button class="btn btn-primary" id="imgGo" onclick="doImage()">生成</button>
+      </div>
+      <div class="field" style="margin-bottom:10px;display:block">
+        <label>图像参考 <span id="imgRefCount" style="color:var(--muted);font-weight:400">0/5</span></label>
+        <div id="imgRefDrop"
+             style="border:1.5px dashed var(--line,#2a2f3a);border-radius:10px;padding:10px;transition:.15s;cursor:text"
+             ondragover="event.preventDefault();this.style.borderColor='var(--accent,#4f8cff)'"
+             ondragleave="this.style.borderColor='var(--line,#2a2f3a)'"
+             ondrop="onImgRefDrop(event)">
+          <div id="imgRefChips" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px"></div>
+          <div style="display:flex;gap:6px;align-items:center">
+            <input id="imgRefInput" placeholder="粘贴图片 URL 或直接 Ctrl+V / 拖入图片，回车添加"
+                   style="flex:1"
+                   onkeydown="if(event.key==='Enter'){event.preventDefault();addImgRefFromInput()}"
+                   onpaste="onImgRefPaste(event)">
+            <button type="button" class="btn btn-outline btn-sm" onclick="document.getElementById('imgRefFile').click()">选择文件</button>
+            <input id="imgRefFile" type="file" accept=".png,.jpg,.jpeg,.webp" multiple style="display:none" onchange="onImgRefFiles(this.files)">
+          </div>
+          <div class="note" style="margin-top:6px;font-size:12px">支持 .png/.jpg/.jpeg/.webp，单张 ≤20MB，最多 5 张</div>
+        </div>
+      </div>
+      <div class="note" id="imgStatus"></div>
+      <div class="gallery" id="imgGallery"></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">生成历史 (服务端 SQLite)</div>
+    <div class="card" style="padding:0;max-height:280px;overflow-y:auto">
+      <table>
+        <thead><tr><th style="width:150px">时间</th><th style="width:170px">模型/比例</th><th style="width:80px">积分</th><th>结果</th></tr></thead>
+        <tbody id="imgLogBody"><tr><td colspan="4" class="empty">暂无</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 3D ============ -->
+<div class="page" id="page-model3d">
+  <div class="section">
+    <div class="section-title">3D 生成工作台</div>
+    <div class="card">
+      <div class="reg-row" style="margin-bottom:10px">
+        <div class="field" style="flex:1;min-width:260px"><label>输入图 URL(必填)</label><input id="d3Img" placeholder="https://.../input.png" style="width:100%"></div>
+        <div class="field"><label>模型</label>
+          <select id="d3Model">
+            <option value="meshy-7">Meshy 7.1 - Flagship (20 / 30 有贴图)</option>
+            <option value="meshy-6">Meshy 6 (20 / 30 有贴图)</option>
+            <option value="meshy-6-lite">Meshy 6 Lite (20 / 30 有贴图)</option>
+            <option value="meshy-t2">Meshy T2 smart topology (~5)</option>
+          </select>
+        </div>
+        <div class="field"><label>目标面数</label><input id="d3Poly" type="number" min="100" max="300000" value="10000" style="width:110px"></div>
+        <div class="field"><label>纹理</label>
+          <select id="d3Tex"><option value="true">有纹理</option><option value="false">无纹理(省分)</option></select>
+        </div>
+        <div class="field"><label>附加 Prompt</label><input id="d3Prompt" placeholder="可选" style="width:200px"></div>
+        <div class="field"><label>等待完成</label>
+          <select id="d3Wait"><option value="false">否(轮询)</option><option value="true">是(阻塞)</option></select>
+        </div>
+        <button class="btn btn-primary" id="d3Go" onclick="do3d()">提交</button>
+      </div>
+      <div class="note" id="d3Status"></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">任务列表 <button class="btn btn-outline btn-sm" onclick="loadJobs()">刷新</button></div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table>
+        <thead><tr><th style="width:170px">任务 ID</th><th style="width:100px">模型</th><th style="width:100px">状态</th><th style="width:80px">积分</th><th style="width:90px">面数</th><th>产物</th></tr></thead>
+        <tbody id="jobsBody"><tr><td colspan="6" class="empty">加载中...</td></tr></tbody>
+      </table>
+    </div>
+    <div class="note"><b>GLB</b>: 由 bridge 解密并缓存到本地,下载链接<b>永久有效</b>(不依赖 meshy 过期签名)。<b>预览</b>: 是 meshy 原始签名 URL,<b>会过期</b>(约1天内,过期后 403)。<br><b>failed ⓘ</b>: 鼠标悬停看原因;早期"restarted"类失败是 bridge 重启中断(模型可能已在 meshy 侧生成成功)。</div>
+  </div>
+</div>
+
+<!-- ============ PIPELINE (一条龙) ============ -->
+<div class="page" id="page-pipeline">
+  <div class="section">
+    <div class="section-title" style="justify-content:space-between">
+      <span>骨骼动画工作台</span>
+      <span>
+        <button class="btn btn-sm" id="plTabChain" onclick="switchPlMode('chain')">🚀 一条龙(生图→3D→动画)</button>
+        <button class="btn btn-outline btn-sm" id="plTabRig" onclick="switchPlMode('rig')">🦴 只绑已有 3D 模型</button>
+      </span>
+    </div>
+    <div class="card" style="border-color:var(--yellow)">
+      <div style="font-size:13px;color:var(--yellow);margin-bottom:12px">⚠️ 网关账号每天只能绑定 1 次(daily_limit=1);绑定与动画免费,生图/3D 消耗积分。一条龙默认使用网关唯一账号。</div>
+
+      <div class="section-title" style="font-size:12px;margin-bottom:6px">① 账号 <span id="plAccSummary" class="badge">网关账号</span></div>
+      <div id="plAccounts" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;max-height:60px;overflow-y:auto;padding:8px;border:1px solid var(--border);border-radius:8px"></div>
+
+      <!-- 一条龙模式 -->
+      <div id="plChainBlock">
+        <div class="section-title" style="font-size:12px;margin-bottom:6px">② 生图(可选:直接填图 URL 则跳过生图)</div>
+        <div class="reg-row" style="margin-bottom:12px">
+          <div class="field" style="flex:1;min-width:260px"><label>Prompt(留空且无图则报错)</label><input id="plPrompt" placeholder="a cute low-poly humanoid game character, A-pose, full body, front view, solid background" style="width:100%"></div>
+          <div class="field" style="flex:1;min-width:220px"><label>或 输入图 URL(跳过生图)</label><input id="plImageUrl" placeholder="https://.../input.png" style="width:100%"></div>
+          <div class="field"><label>生图模型</label><select id="plImgModel"></select></div>
+        </div>
+
+        <div class="section-title" style="font-size:12px;margin-bottom:6px">③ 3D 建模</div>
+        <div class="reg-row" style="margin-bottom:12px">
+          <div class="field"><label>3D 模型</label>
+            <select id="plModel3d"><option value="meshy-7">Meshy 7.1 - Flagship (~30)</option><option value="meshy-6">Meshy 6 (~30)</option><option value="meshy-6-lite">Meshy 6 Lite (~30)</option><option value="meshy-t2">Meshy T2 smart topology (~5)</option></select>
+          </div>
+          <div class="field"><label>目标面数</label><input id="plPoly" type="number" min="100" max="300000" value="10000" style="width:110px"></div>
+        </div>
+      </div>
+
+      <!-- 只绑已有模型模式 -->
+      <div id="plRigBlock" style="display:none">
+        <div class="section-title" style="font-size:12px;margin-bottom:6px">② 模型任务 ID(留空=该账号名下最新成功的 3D 模型)</div>
+        <div class="reg-row" style="margin-bottom:12px">
+          <div class="field" style="flex:1;min-width:260px"><label>已有 3D 模型任务 ID</label><input id="plRigModel" placeholder="留空自动用最新模型" style="width:100%"></div>
+        </div>
+      </div>
+
+      <div class="section-title" style="font-size:12px;margin-bottom:6px">④ 动画(biped 人形骨架 + 选动作)</div>
+      <div class="reg-row" style="margin-bottom:8px">
+        <div class="field"><label>骨架模式</label><select id="plMode"><option value="biped">biped(人形)</option><option value="smart">smart(不兼容动作)</option></select></div>
+        <div class="field"><label>筛选</label>
+          <select id="plTier" onchange="renderPlActions()" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text)">
+            <option value="free">仅免费(Free)</option><option value="">全部</option><option value="pro">仅 Pro</option>
+          </select>
+        </div>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)"><input type="checkbox" id="plAllowPaid"> 允许 Pro 动作</label>
+        <span class="badge" id="plActionSummary"></span>
+      </div>
+      <div id="plActions" style="display:flex;flex-wrap:wrap;gap:6px;max-height:150px;overflow-y:auto;padding:8px;border:1px solid var(--border);border-radius:8px;margin-bottom:12px"></div>
+
+      <div style="display:flex;gap:10px;align-items:center">
+        <button class="btn btn-primary" id="plGo" onclick="doPipeline()">🚀 运行</button>
+        <span class="note" id="plStatus"></span>
+      </div>
+      <div class="note" style="margin-top:10px">📦 产物说明: ② 3D 模型 GLB = <b>角色外观</b>(网格+贴图,明文可直接下载); ③ 动画 GLB = <b>骨架+动画轨道</b>(无外观)。最终视频需在 <b>Blender</b> 等软件中拼接: 先导入模型,再导入动画并关联骨架。</div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">运行日志</div>
+    <div class="log" id="plLog" style="max-height:280px"></div>
+  </div>
+  <div class="section">
+    <div class="section-title">本次结果</div>
+    <div class="card" id="plResult"><div class="empty">尚未运行</div></div>
+  </div>
+</div>
+
+<!-- 旧 ANIMATE 页已合并入 page-pipeline, 保留占位以便历史引用 -->
+<div class="page" id="page-animate" style="display:none"></div>
+
+
+<!-- ============ CHAT ============ -->
+<div class="page" id="page-chat">
+  <div class="section">
+    <div class="section-title">对话工作台(orchestrator / claude-sonnet-5)</div>
+    <div class="card">
+      <div id="chatBox" class="log" style="max-height:380px;white-space:pre-wrap;font-family:inherit;font-size:13px"></div>
+      <div class="reg-row" style="margin-top:12px">
+        <div class="field" style="flex:1"><input id="chatInput" placeholder="输入消息... (Enter 发送)" style="width:100%" onkeydown="if(event.key==='Enter')doChat()"></div>
+        <button class="btn btn-primary" id="chatGo" onclick="doChat()">发送</button>
+        <button class="btn btn-outline" onclick="chatReset()">清空</button>
+      </div>
+      <div class="note" id="chatStatus"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ACCOUNTS (credentials.db) ============ -->
+<div class="page" id="page-accounts">
+  <div class="section">
+    <div class="section-title">当前账号</div>
+    <div class="card"><div class="kv" id="accActiveKv"></div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title" style="justify-content:space-between">浏览器登录 <span class="note">网关拉起一个有头浏览器，你在里面登录 meshy，网关照旧读取会话（不碰你的密码）</span></div>
+    <div class="card">
+      <div class="reg-row" style="margin-bottom:10px">
+        <div class="field"><label>调试端口</label><input id="blPort" type="number" style="width:110px" placeholder="9222"></div>
+        <div class="field" style="flex:1;min-width:260px"><label>浏览器路径(留空自动探测)</label><input id="blPath" placeholder="自动探测 Chrome / Edge" style="width:100%"></div>
+        <div class="field" style="flex:1;min-width:220px"><label>启动页</label><input id="blUrl" placeholder="https://www.meshy.ai/" style="width:100%"></div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <button class="btn btn-primary btn-sm" id="blStartBtn" onclick="browserLoginStart()">打开浏览器并等待登录</button>
+        <button class="btn btn-outline btn-sm" onclick="browserLoginCapture()">立即捕获</button>
+        <button class="btn btn-outline btn-sm" onclick="browserLoginCancel()">取消/关闭</button>
+        <span class="note" id="blStatus"></span>
+      </div>
+      <div class="note" id="blHint">流程：点「打开浏览器」→ 在弹出的窗口里登录 meshy.ai → 登录成功后网关每 3 秒自动检测并入库（如已登录可点「立即捕获」）。<br>捕获只读取 <span class="mono">sb-auth-auth-token</span> cookie 与 <span class="mono">meshy_device_id</span>，<b>不会自动切换当前账号</b>，需到下方列表手动切换。</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title" style="justify-content:space-between">手动导入 <span class="note">凭据保存在服务端 data/credentials.db，不经浏览器回传</span></div>
+    <div class="card">
+      <div class="reg-row" style="margin-bottom:8px">
+        <div class="field" style="flex:1;min-width:240px"><label>邮箱</label><input id="accEmail" placeholder="user@example.com" style="width:100%"></div>
+        <div class="field" style="flex:1;min-width:240px"><label>refresh_token</label><input id="accRt" placeholder="Rotating refresh token" style="width:100%"></div>
+      </div>
+      <div class="reg-row" style="margin-bottom:8px">
+        <div class="field" style="flex:1;min-width:240px"><label>access_token(可选, 优先直接使用)</label><input id="accAt" placeholder="可选" style="width:100%"></div>
+        <div class="field" style="flex:1;min-width:240px"><label>device_id <b style="color:var(--yellow)">必填</b>(= 浏览器 meshy_device_id)</label><input id="accDev" placeholder="必须与真实浏览器一致" style="width:100%"></div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)"><input type="checkbox" id="accActivate" checked> 导入后立即切换为当前账号</label>
+        <button class="btn btn-primary btn-sm" id="accImportBtn" onclick="importAccount()">导入并验证</button>
+        <span class="note" id="accImportStatus"></span>
+      </div>
+      <div class="note">导入时会先用 access_token 探测；若不可用再用 refresh_token 换新，并补齐积分/月度刷新时间。device_id 不一致会触发 <b style="color:var(--red)">DeviceKicked / rule1_same_platform</b>，务必与浏览器一致。</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">从数据库文件导入</div>
+    <div class="card">
+      <div class="reg-row" style="margin-bottom:8px">
+        <div class="field" style="flex:1;min-width:320px"><label>上传 .db 文件(原项目 meshy2api.db 或本网关 credentials.db)</label><input id="accDbFile" type="file" accept=".db,.sqlite,.sqlite3" onchange="parseUploadedDb(this.files)"></div>
+        <button class="btn btn-outline btn-sm" onclick="importSelectedDb()">导入选中</button>
+        <button class="btn btn-outline btn-sm" onclick="document.getElementById('accDbFile').value='';ACC_UPLOAD=null;$('accDbBody').innerHTML='<tr><td colspan=5 class=\'empty\'>选择 .db 文件后列出账号</td></tr>'">清空</button>
+      </div>
+      <div class="card" style="padding:0;overflow-x:auto">
+        <table>
+          <thead><tr><th style="width:40px"><input type="checkbox" onchange="toggleAllDb(this.checked)"></th><th>邮箱</th><th style="width:90px">积分</th><th style="width:120px">device_id</th><th style="width:120px">状态</th></tr></thead>
+          <tbody id="accDbBody"><tr><td colspan="5" class="empty">选择 .db 文件后列出账号</td></tr></tbody>
+        </table>
+      </div>
+      <div class="note" id="accDbStatus"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title" style="justify-content:space-between">凭据库 <button class="btn btn-outline btn-sm" onclick="loadAccounts()">刷新</button></div>
+    <div class="card" style="padding:0;overflow-x:auto">
+      <table>
+        <thead><tr><th>邮箱</th><th style="width:80px">积分</th><th style="width:90px">月度/永久</th><th style="width:110px">device</th><th style="width:130px">Token 到期</th><th style="width:170px">操作</th></tr></thead>
+        <tbody id="accBody"><tr><td colspan="6" class="empty">加载中...</td></tr></tbody>
+      </table>
+    </div>
+    <div class="note">当前使用的账号不能删除；切换会热更新网关（无需重启）。</div>
+  </div>
+</div>
+
+<!-- ============ LOGS ============ -->
+<div class="page" id="page-logs">
+  <div class="section">
+    <div class="section-title" style="justify-content:space-between">Console 事件日志 <button class="btn btn-outline btn-sm" onclick="logClear()">清空</button></div>
+    <div class="log" id="evtLog"></div>
+  </div>
+</div>
+
+</main>
+<div id="lightbox" onclick="this.style.display='none'"><img id="lightboxImg"></div>
+<script>
+// ---------- helpers ----------
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmtTime = (ts) => new Date(ts * 1000).toLocaleTimeString();
+const API_KEY = localStorage.getItem("meshy2api_key") || "";
+function headers() { const h = { "Content-Type": "application/json" }; if (API_KEY) h["Authorization"] = "Bearer " + API_KEY; return h; }
+async function api(path, opts = {}) {
+  // 默认 20s 超时: 后端偶尔因出网抖动会慢, 不能让页面无限等
+  const { timeoutMs = 20_000, ...rest } = opts;
+  const res = await fetch(path, {
+    ...rest,
+    headers: { ...headers(), ...(rest.headers || {}) },
+    signal: rest.signal ?? AbortSignal.timeout(timeoutMs),
+  });
+  const text = await res.text();
+  let json = null; try { json = JSON.parse(text); } catch {}
+  if (!res.ok) throw new Error((json && json.error && json.error.message) || text.slice(0, 200) || res.status);
+  return json;
+}
+function toast(msg, ok = true) {
+  const el = document.createElement("div");
+  el.className = "toast " + (ok ? "toast-ok" : "toast-err");
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3500);
+}
+const logLines = [];
+function logEv(kind, msg) {
+  logLines.push(`<div><span class="t">${new Date().toLocaleTimeString()}</span><span class="${kind}">${esc(msg)}</span></div>`);
+  if (logLines.length > 400) logLines.shift();
+  const el = $("evtLog");
+  if (el) { el.innerHTML = logLines.slice(-200).join(""); el.scrollTop = el.scrollHeight; }
+}
+function logClear() { logLines.length = 0; $("evtLog").innerHTML = ""; }
+
+// ---------- nav ----------
+function fmtCountdown(sec) {
+  if (sec == null || sec < 0) return "-";
+  const d = Math.floor(sec / 86400), h = Math.floor((sec % 86400) / 3600), m = Math.floor((sec % 3600) / 60);
+  if (d > 0) return `${d}天${h}小时`;
+  if (h > 0) return `${h}小时${m}分`;
+  return `${m}分钟`;
+}
+// 每秒本地推进: stats/accounts 页的刷新倒计时
+let REFILL_TARGET = null; // ms epoch, set by refreshAll
+setInterval(() => {
+  if (!REFILL_TARGET) return;
+  const sec = Math.max(0, Math.floor((REFILL_TARGET - Date.now()) / 1000));
+  const el1 = $("ovRefillCountdown"), el2 = $("accRefillCountdown");
+  if (el1) el1.textContent = fmtCountdown(sec);
+  if (el2) el2.textContent = fmtCountdown(sec);
+}, 1000);
+
+function switchPage(name) {
+  const a = document.querySelector(`nav a[data-page=${name}]`);
+  if (a) a.click();
+}
+document.querySelectorAll("nav a").forEach((a) => {
+  a.onclick = () => {
+    document.querySelectorAll("nav a").forEach((x) => x.classList.remove("active"));
+    document.querySelectorAll(".page").forEach((x) => x.classList.remove("active"));
+    a.classList.add("active");
+    $("page-" + a.dataset.page).classList.add("active");
+    if (a.dataset.page === "model3d") loadJobs();
+    if (a.dataset.page === "pipeline") loadPipeline();
+    if (a.dataset.page === "accounts") { loadAccounts(); loadBrowserCfg(); }
+    if (a.dataset.page === "overview") refreshAll();
+  };
+});
+
+// ---------- overview / stats ----------
+let MODELS = [];
+// 展示名映射: 视频中不露出上游品牌名, 仅影响 console 显示, API 层(值)不变
+const displayName = (id) => {
+  if (typeof id !== "string") return id;
+  if (id.startsWith("gpt-image")) return id.replace(/^gpt-image/, "image"); // gpt-image-2 → image-2, gpt-image-2-5-flare → image-2-5-flare
+  return id;
+};
+async function refreshAll() {
+  try {
+    const s = await api("/v1/stats");
+    const cr = s.upstream ?? {};
+    const total = s.upstreamTotal ?? 0;
+    const free = cr.freeCreditBalance ?? 0, share = cr.shareCreditEarned ?? 0, paid = cr.creditBalance ?? 0;
+    $("stCredits").innerHTML = `${total}<small> / ${total}</small>`;
+    $("creditsBadge").textContent = `credits: ${total} (free ${free} + bonus ${share})`;
+    $("stJobs").textContent = s.jobs.total;
+    $("stRunning").textContent = s.jobs.running;
+    $("stSpent").textContent = s.jobs.creditsSpent;
+    $("stQueue").textContent = s.bridge.turnQueueWaiting;
+    const exp = s.bridge.tokenExpiresAt ? new Date(s.bridge.tokenExpiresAt * 1000) : null;
+    const mins = exp ? Math.round((exp - Date.now()) / 60000) : null;
+    $("sessBadge").innerHTML = exp
+      ? `<span class="dot ${mins > 3 ? "dot-ok" : "dot-warn"}"></span>token ${mins}min`
+      : `<span class="dot dot-bad"></span>no token`;
+    $("bridgeKv").innerHTML = [
+      ["版本", "v" + s.bridge.version],
+      ["启动于", new Date(s.bridge.startedAt).toLocaleString()],
+      ["Token 到期", exp ? exp.toLocaleString() : "-"],
+      ["GLB 解密", s.bridge.decrypt3d ? "开启" : "关闭"],
+      ["数据目录", `<span class="mono">${esc(s.bridge.dataDir)}</span>`],
+      ["端口", s.bridge.port],
+    ].map(([k, v]) => `<div class="k">${k}</div><div>${v}</div>`).join("");
+    // overview: current account panel
+    try {
+      const acc = s.account ?? {};
+      $("ovAccEmail").textContent = acc.email ?? "(未登录/凭证失效)";
+      $("ovAccCredits").textContent = s.upstreamTotal ?? "-";
+      $("ovMonthlyBucket").textContent = acc.monthlyBucket ?? "-";
+      $("ovPermanentBucket").textContent = acc.permanentBucket ?? "-";
+      const refill = acc.refillAt ? new Date(acc.refillAt) : null;
+      $("ovRefillDate").textContent = refill ? `刷新于 ${refill.toLocaleDateString()} (UTC 1号)` : "下次月度刷新";
+      $("ovRefillCountdown").textContent = refill ? fmtCountdown(acc.refillInSeconds ?? 0) : "-";
+      REFILL_TARGET = acc.refillAt ?? null;
+      $("ovTokenCountdown").textContent = mins != null ? `${mins} 分钟` : "-";
+      $("ovAccountNote").innerHTML = mins > 3
+        ? "Token 有效 · refresh_token 失效时服务会自动尝试续期并在启动时重新读取 data/session.json。"
+        : "⚠️ Token 即将过期或已失效 — 检查 config.json → gateway.refreshToken / deviceId 是否正确。";
+    } catch (e2) { logEv("err", "overview acc: " + e2.message); }
+  } catch (e) {
+    $("healthDot").className = "dot dot-bad";
+    logEv("err", "stats: " + e.message);
+  }
+}
+
+async function loadModels() {
+  try {
+    const d = await api("/v1/models");
+    MODELS = d.data ?? [];
+    const rows = MODELS.map((m) => {
+      let price = "-";
+      if (m.kind === "image") price = `t2i ${m.credits.text_to_image} / i2i ${m.credits.image_to_image}`;
+      else if (Array.isArray(m.credits)) price = m.credits.map((p) => `${JSON.stringify(p.variant ?? "")}=${p.credits}`).join(", ");
+      return `<tr><td class="mono">${esc(displayName(m.id))}</td><td><span class="tag tag-${m.kind === "3d" ? "3d" : "image"}">${m.kind}</span></td><td>${esc(price)}</td></tr>`;
+    }).join("");
+    $("modelsBody").innerHTML = rows || `<tr><td colspan="3" class="empty">无模型</td></tr>`;
+    // image model select
+    const imgSel = $("imgModel");
+    const cur = imgSel.value;
+    imgSel.innerHTML = MODELS.filter((m) => m.kind === "image").map((m) => {
+      const label = `${displayName(m.id)} (t2i ${m.credits.text_to_image})`;
+      return `<option value="${esc(m.id)}">${esc(label)}</option>`;
+    }).join("");
+    if ([...imgSel.options].some((o) => o.value === cur)) imgSel.value = cur;
+    refreshImgAspect();
+  } catch (e) { logEv("err", "models: " + e.message); }
+}
+
+// ---------- image workbench ----------
+// 图像参考：chips 管理（URL + 本地文件 base64），最多 5 张
+const IMG_REF_MAX = 5;
+const IMG_REF_MAX_BYTES = 20 * 1024 * 1024;
+let imgRefs = []; // [{ kind:'url'|'file', value, name? }]
+function renderImgRefs() {
+  const box = $("imgRefChips");
+  if (!box) return;
+  box.innerHTML = imgRefs.map((r, i) => {
+    const label = r.kind === "file" ? `📎 ${esc(r.name || "file")}` : esc(r.value.slice(0, 46)) + (r.value.length > 46 ? "…" : "");
+    const thumb = r.kind === "file"
+      ? `<img src="${esc(r.preview || r.value)}" style="height:28px;width:28px;object-fit:cover;border-radius:4px">`
+      : `<img src="${esc(r.value)}" style="height:28px;width:28px;object-fit:cover;border-radius:4px" onerror="this.style.display='none'">`;
+    return `<span title="${esc(r.kind === 'file' ? r.name : r.value)}" style="display:inline-flex;align-items:center;gap:5px;background:var(--bg-hover,#1c2230);border:1px solid var(--line,#2a2f3a);border-radius:8px;padding:3px 6px;font-size:12px;max-width:220px">
+      ${thumb}<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${label}</span>
+      <a href="javascript:void(0)" onclick="removeImgRef(${i})" style="color:var(--red,#f87171);text-decoration:none;font-weight:700">×</a>
+    </span>`;
+  }).join("");
+  $("imgRefCount").textContent = `${imgRefs.length}/${IMG_REF_MAX}`;
+  $("imgRefCount").style.color = imgRefs.length >= IMG_REF_MAX ? "var(--yellow,#fbbf24)" : "var(--muted)";
+}
+function addImgRefUrl(url) {
+  url = String(url || "").trim();
+  if (!url) return;
+  if (imgRefs.length >= IMG_REF_MAX) return toast(`图像参考最多 ${IMG_REF_MAX} 张`, false);
+  if (imgRefs.some((r) => r.kind === "url" && r.value === url)) return toast("该 URL 已添加", false);
+  imgRefs.push({ kind: "url", value: url });
+  renderImgRefs();
+}
+function addImgRefFromInput() {
+  const inp = $("imgRefInput");
+  if (inp.value.trim()) { addImgRefUrl(inp.value.trim()); inp.value = ""; }
+}
+function removeImgRef(i) { imgRefs.splice(i, 1); renderImgRefs(); }
+function readFileAsDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const fr = new FileReader();
+    fr.onload = () => resolve(fr.result);
+    fr.onerror = reject;
+    fr.readAsDataURL(file);
+  });
+}
+async function onImgRefFiles(files) {
+  for (const f of Array.from(files || [])) {
+    if (imgRefs.length >= IMG_REF_MAX) { toast(`图像参考最多 ${IMG_REF_MAX} 张`, false); break; }
+    if (!/^image\/(png|jpe?g|webp)$/.test(f.type)) { toast(`${f.name}: 仅支持 png/jpg/jpeg/webp`, false); continue; }
+    if (f.size > IMG_REF_MAX_BYTES) { toast(`${f.name}: 超过 20MB`, false); continue; }
+    const dataUrl = await readFileAsDataURL(f);
+    imgRefs.push({ kind: "file", value: dataUrl, preview: dataUrl, name: f.name });
+  }
+  renderImgRefs();
+  const inp = $("imgRefFile"); if (inp) inp.value = "";
+}
+function onImgRefDrop(e) {
+  e.preventDefault();
+  e.currentTarget.style.borderColor = "var(--line,#2a2f3a)";
+  const dt = e.dataTransfer;
+  if (dt?.files?.length) { onImgRefFiles(dt.files); return; }
+  const url = dt?.getData("text/uri-list") || dt?.getData("text/plain");
+  if (url) String(url).split(/[\s,]+/).forEach(addImgRefUrl);
+}
+function onImgRefPaste(e) {
+  const items = e.clipboardData?.items || [];
+  const files = [];
+  for (const it of items) if (it.kind === "file" && it.type.startsWith("image/")) { const f = it.getAsFile(); if (f) files.push(f); }
+  if (files.length) { e.preventDefault(); onImgRefFiles(files); }
+}
+// 比例配置来自实测 meshy workspace（nano 系列一档，gpt-image 系列一档）
+const IMG_RATIOS = {
+  nano: ["1:1", "16:9", "9:16", "4:3", "3:4"],
+  gpt: ["1:1", "16:9", "9:16", "4:3", "3:4", "3:2", "2:3"],
+};
+const isNanoModel = (m) => /nano-banana/.test(m || "");
+const isGptModel = (m) => /gpt-image/.test(m || "");
+// 多视图强制比例：nano → 16:9，gpt-image → 3:2
+const MULTIVIEW_RATIO = { nano: "16:9", gpt: "3:2" };
+function ratioFamily(model) {
+  if (isNanoModel(model)) return "nano";
+  if (isGptModel(model)) return "gpt";
+  return "nano";
+}
+function refreshImgAspect() {
+  const model = $("imgModel").value;
+  const fam = ratioFamily(model);
+  const multi = $("imgMultiView").checked;
+  const sel = $("imgAspect");
+  const prev = sel.value;
+  const ratios = multi ? [MULTIVIEW_RATIO[fam]] : IMG_RATIOS[fam];
+  sel.innerHTML = ratios.map((r) => `<option value="${esc(r)}">${esc(r)}</option>`).join("");
+  sel.value = ratios.includes(prev) ? prev : (multi ? MULTIVIEW_RATIO[fam] : ratios[0]);
+  sel.disabled = multi;
+}
+// 画质分档（mock）：按模型能力区分，nano → 1K/2K；gpt-image → 1K/2K/4K
+const IMG_QUALITY = {
+  standard: "标准 (1K)",
+  hd: "高清 (2K)",
+  ultra: "超清 (4K)",
+};
+const IMG_QUALITY_BY_FAMILY = {
+  nano: ["standard", "hd"],
+  gpt: ["standard", "hd", "ultra"],
+};
+function refreshImgQuality() {
+  const fam = ratioFamily($("imgModel").value);
+  const sel = $("imgQuality");
+  const prev = sel.value;
+  const allowed = IMG_QUALITY_BY_FAMILY[fam];
+  sel.innerHTML = allowed.map((q) => `<option value="${esc(q)}">${esc(IMG_QUALITY[q])}</option>`).join("");
+  sel.value = allowed.includes(prev) ? prev : allowed[0];
+}
+async function refreshImgQuota() {
+  try {
+    const d = await api("/v1/image/quota");
+    const rem = d?.result?.remaining ?? d?.remaining;
+    $("imgQuotaBadge").textContent = `quota: ${rem ?? "-"}`;
+  } catch (e) { $("imgQuotaBadge").textContent = "quota: -"; }
+}
+let imgBusy = false;
+async function doImage() {
+  if (imgBusy) return;
+  const prompt = $("imgPrompt").value.trim();
+  if (!prompt) return toast("请输入 prompt", false);
+  const model = $("imgModel").value;
+  const aspect = $("imgAspect").value;
+  const n = Number($("imgN").value) || 1;
+  const refs = imgRefs.map((r) => r.value);
+  if (refs.length > IMG_REF_MAX) return toast(`图像参考最多 ${IMG_REF_MAX} 张`, false);
+  const style = $("imgStyle").value;
+  const pose = $("imgPose").value;
+  const quality = $("imgQuality")?.value || "standard";
+  const multiView = $("imgMultiView").checked;
+  const stream = $("imgStream").checked;
+  const body = { model, prompt, aspect_ratio: aspect, n, quality };
+  if (refs.length) body.image = refs;
+  if (style) body.style = style;
+  if (pose) body.pose = pose;
+  if (multiView) body.multi_view = true;
+  imgBusy = true; $("imgGo").disabled = true;
+  $("imgStatus").innerHTML = `<span class="spinner"></span> 生成中...`;
+  const t0 = Date.now();
+  let credits = null, urls = [];
+  try {
+    if (stream) {
+      const res = await fetch("/v1/image/generation", { method: "POST", headers: headers(), body: JSON.stringify({ ...body, stream: true }) });
+      if (!res.ok) throw new Error((await res.text()).slice(0, 200));
+      const reader = res.body.getReader();
+      const dec = new TextDecoder();
+      let buf = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buf += dec.decode(value, { stream: true });
+        let idx;
+        while ((idx = buf.indexOf("\n")) >= 0) {
+          const line = buf.slice(0, idx).trim(); buf = buf.slice(idx + 1);
+          if (!line.startsWith("data:")) continue;
+          const payload = line.slice(5).trim();
+          if (payload === "[DONE]") continue;
+          let ev; try { ev = JSON.parse(payload); } catch { continue; }
+          if (ev.progress != null) $("imgStatus").innerHTML = `<span class="spinner"></span> 进度 ${ev.progress}% (${Math.round((Date.now()-t0)/1000)}s)`;
+          else if (ev.text) $("imgStatus").innerHTML = `<span class="spinner"></span> ${esc(ev.text)} (${Math.round((Date.now()-t0)/1000)}s)`;
+          if (ev.object === "image.generation") { urls = (ev.data ?? []).map((x) => x.url); credits = ev.usage?.credits ?? null; }
+        }
+      }
+    } else {
+      const d = await api("/v1/image/generation", { method: "POST", body: JSON.stringify(body) });
+      urls = (d.data ?? []).map((x) => x.url); credits = d.usage?.credits ?? null;
+    }
+    const QUALITY_LABEL = { standard: "标准 (1K)", hd: "高清 (2K)", ultra: "超清 (4K)" };
+    $("imgStatus").innerHTML = `完成 (${Math.round((Date.now()-t0)/1000)}s, ${credits ?? "?"} 积分, 画质 ${esc(QUALITY_LABEL[quality] || quality)})`;
+    urls.forEach((u) => addImageCell(u, model, aspect, quality));
+    logEv("ok", `image ok ${model} ${credits}cr ${quality}`);
+    imgLogAdd({ model, aspect, quality, credits, urls, ok: true, style, pose, multi_view: multiView });
+    refreshAll(); refreshImgQuota();
+  } catch (e) {
+    $("imgStatus").innerHTML = `<span style="color:var(--red)">失败: ${esc(e.message)}</span>`;
+    logEv("err", "image: " + e.message);
+    imgLogAdd({ model, aspect, credits: null, urls: [], ok: false, err: e.message, style, pose, multi_view: multiView });
+  } finally { imgBusy = false; $("imgGo").disabled = false; }
+}
+function addImageCell(url, model, aspect, quality) {
+  const q = { standard: "1K", hd: "2K", ultra: "4K" }[quality] || "";
+  const cell = document.createElement("div");
+  cell.className = "cell";
+  cell.innerHTML = `<img src="${esc(url)}" loading="lazy" onclick="showLightbox(this.src)"><div class="meta">${esc(model)} · ${esc(aspect)}${q ? " · " + q : ""}</div>`;
+  $("imgGallery").prepend(cell);
+}
+function showLightbox(src) { $("lightboxImg").src = src; $("lightbox").style.display = "flex"; }
+// image log persisted in sqlite (server /v1/image-log), not localStorage
+async function imgLogAdd(rec) {
+  try {
+    await api("/v1/image-log", { method: "POST", body: JSON.stringify({ ...rec, at: Date.now() }) });
+  } catch (e) { logEv("err", "imgLogAdd: " + e.message); }
+  imgLogRender();
+}
+async function imgLogRender() {
+  let arr = [];
+  try {
+    const d = await api("/v1/image-log");
+    arr = d.results ?? [];
+  } catch (e) { logEv("err", "imgLogRender: " + e.message); }
+  $("imgLogBody").innerHTML = arr.length ? arr.map((r) => `
+    <tr><td>${new Date(r.at).toLocaleTimeString()}</td>
+    <td>${esc(r.model)} · ${esc(r.aspect)}${r.quality ? " · " + esc(({standard:"1K",hd:"2K",ultra:"4K"})[r.quality] || r.quality) : ""}</td>
+    <td>${r.credits ?? "-"}</td>
+    <td>${r.ok ? `${r.urls.length} 张 ${r.urls.map((u, i) => `<a class="link" href="${esc(u)}" target="_blank">${i + 1}</a>`).join(" ")}` : `<span style="color:var(--red)">${esc((r.err||"").slice(0,80))}</span>`}</td></tr>`).join("")
+    : `<tr><td colspan="4" class="empty">暂无</td></tr>`;
+}
+
+// ---------- 3D workbench ----------
+let d3Busy = false;
+async function do3d() {
+  if (d3Busy) return;
+  const image_url = $("d3Img").value.trim();
+  if (!image_url) return toast("需要输入图 URL", false);
+  const body = {
+    model: $("d3Model").value,
+    image_url,
+    target_polycount: Number($("d3Poly").value) || null,
+    should_texture: $("d3Tex").value === "true",
+    prompt: $("d3Prompt").value.trim(),
+    wait: $("d3Wait").value === "true",
+  };
+  d3Busy = true; $("d3Go").disabled = true;
+  $("d3Status").innerHTML = `<span class="spinner"></span> 提交中...`;
+  try {
+    const d = await api("/v1/3d/generations", { method: "POST", body: JSON.stringify(body) });
+    if (body.wait) { $("d3Status").innerHTML = `完成: ${d.status}`; }
+    else { $("d3Status").innerHTML = `已提交 <span class="mono">${esc(d.id)}</span>,等待队列执行中`; startJobPolling(d.id); }
+    logEv("ok", "3d submit " + d.id);
+    loadJobs(); refreshAll();
+  } catch (e) {
+    $("d3Status").innerHTML = `<span style="color:var(--red)">失败: ${esc(e.message)}</span>`;
+    logEv("err", "3d: " + e.message);
+  } finally { d3Busy = false; $("d3Go").disabled = false; }
+}
+const pollers = new Set();
+function startJobPolling(id) {
+  if (pollers.has(id)) return;
+  pollers.add(id);
+  const timer = setInterval(async () => {
+    try {
+      const d = await api("/v1/3d/generations/" + id);
+      if (d.status === "succeeded" || d.status === "failed") {
+        clearInterval(timer); pollers.delete(id);
+        logEv(d.status === "succeeded" ? "ok" : "err", `3d ${id} ${d.status}`);
+        loadJobs(); refreshAll();
+      }
+    } catch { clearInterval(timer); pollers.delete(id); }
+  }, 8000);
+}
+// 无贴图 / 有贴图 两档
+const D3_DEFAULT_COST = { "meshy-t2": 5, "meshy-6": 30, "meshy-6-lite": 30, "meshy-5.1": 30, "meshy-4": 30, "meshy-7": 30 };
+const D3_COST_NO_TEX = { "meshy-t2": 5, "meshy-6": 20, "meshy-6-lite": 20, "meshy-5.1": 20, "meshy-4": 20, "meshy-7": 20 };
+async function loadJobs() {
+  try {
+    const d = await api("/v1/3d/generations?limit=30");
+    const rows = (d.data ?? []).map((j) => {
+      let statusTag = `<span class="tag tag-${esc(j.status)}">${esc(j.status)}</span>`;
+      // explain failures: restarted = bridge 重启中断(未拿到 meshy task_id, 无法恢复)
+      if (j.status === "failed" && j.error) {
+        const reason = j.error.code === "restarted"
+          ? "bridge 重启时任务在途且未拿到 meshy task_id,本地无法恢复(模型可能已在 meshy 侧生成成功)"
+          : `${j.error.code}: ${j.error.message ?? ""}`;
+        statusTag = `<span class="tag tag-failed" title="${esc(reason)}">failed ⓘ</span>`;
+      }
+      const credits = j.credits?.credits ?? (j.status === "succeeded" ? `~${D3_DEFAULT_COST[j.model] ?? "?"}*` : "-");
+      let artifacts = "";
+      if (j.glb_plain) artifacts += `<a class="link" href="${esc(j.glb_plain.url)}" download>GLB(${Math.round((j.glb_plain.size ?? 0) / 1024)}KB)</a> `;
+      else if (j.status === "succeeded") artifacts += `<a class="link" href="javascript:void(0)" onclick="prepGlb('${esc(j.id)}')">生成GLB</a> `;
+      if (j.previewUrl) artifacts += `<a class="link" href="${esc(j.previewUrl)}" target="_blank">预览</a>`;
+      return `<tr>
+        <td class="mono">${esc(j.id)}</td>
+        <td><span class="tag tag-3d">${esc(j.model)}</span></td>
+        <td>${statusTag}</td>
+        <td>${credits}</td>
+        <td>${j.triangleCount ?? j.task?.triangleCount ?? "-"}</td>
+        <td>${artifacts || "-"}</td>
+      </tr>`;
+    }).join("");
+    $("jobsBody").innerHTML = rows || `<tr><td colspan="6" class="empty">暂无任务</td></tr>`;
+  } catch (e) { logEv("err", "jobs: " + e.message); }
+}
+async function prepGlb(id) {
+  logEv("info", "decrypt glb " + id);
+  try {
+    const d = await api("/v1/3d/generations/" + id);
+    toast(d.result?.glb_plain ? "GLB 就绪" : "解密失败(查看日志)", !!d.result?.glb_plain);
+  } catch (e) { toast(e.message, false); }
+  loadJobs();
+}
+
+// ---------- animate workbench ----------
+let ACTION_LIB = [];
+let ANIM_JOBS = [];
+const selectedActions = new Set();
+
+async function loadActionLibrary() {
+  try {
+    const d = await api("/v1/3d/animations");
+    ACTION_LIB = d.data ?? [];
+    $("anCat").innerHTML = `<option value="">全部分类</option>` +
+      (d.categories ?? []).map((c) => `<option value="${esc(c)}">${esc(c)}</option>`).join("");
+    renderActions();
+  } catch (e) { logEv("err", "actions: " + e.message); }
+}
+// ---------- pipeline (一条龙) ----------
+const plSelectedActions = new Set([-2]); // default Walking
+async function loadPipeline() {
+  try {
+    const s = await api("/v1/stats");
+    const acc = s.account ?? {};
+    $("plAccSummary").textContent = acc.email ?? "网关账号";
+    $("plAccounts").innerHTML = `<div style="font-size:12px">
+      <div class="mono">${esc(acc.email ?? "(未登录)")}</div>
+      <div style="color:var(--muted)">${acc.freeCredits ?? s.upstreamTotal ?? "?"}分 · token ${acc.expiresAt ? "有效" : "-"}</div>
+    </div>`;
+  } catch (e) { logEv("err", "pipeline account: " + e.message); }
+  if (!ACTION_LIB.length) await loadActionLibrary();
+  const sel = $("plImgModel"); const cur = sel.value;
+  sel.innerHTML = MODELS.filter((m) => m.kind === "image").map((m) => `<option value="${esc(m.id)}">${esc(displayName(m.id))} (${m.credits.text_to_image}分)</option>`).join("");
+  if ([...sel.options].some((o) => o.value === cur)) sel.value = cur;
+  switchPlMode(plMode);
+  renderPlActions();
+}
+function renderPlActions() {
+  const tier = $("plTier").value;
+  let list = ACTION_LIB;
+  if (tier === "free") list = list.filter((a) => a.free);
+  else if (tier === "pro") list = list.filter((a) => !a.free);
+  const selN = [...plSelectedActions].length;
+  $("plActionSummary").textContent = `已选 ${selN} 个动作`;
+  $("plActions").innerHTML = list.slice(0, 200).map((a) => {
+    const on = plSelectedActions.has(a.selection);
+    const cls = a.free ? (on ? "tag-succeeded" : "tag-free") : (on ? "tag-3d" : "tag-pro");
+    return `<span class="tag ${cls}" style="cursor:pointer;user-select:none;${on ? "outline:2px solid var(--accent);font-weight:700" : ""}" onclick="togglePlAction(${a.selection})">${a.free ? "🟢" : "🟣"} ${on ? "✓ " : ""}${esc(a.name)}</span>`;
+  }).join("");
+}
+function togglePlAction(sel) {
+  if (plSelectedActions.has(sel)) plSelectedActions.delete(sel);
+  else plSelectedActions.add(sel);
+  renderPlActions();
+}
+let plMode = "chain"; // "chain" | "rig"
+function switchPlMode(m) {
+  plMode = m;
+  $("plChainBlock").style.display = m === "chain" ? "" : "none";
+  $("plRigBlock").style.display = m === "rig" ? "" : "none";
+  $("plTabChain").className = m === "chain" ? "btn btn-sm" : "btn btn-outline btn-sm";
+  $("plTabRig").className = m === "rig" ? "btn btn-sm" : "btn btn-outline btn-sm";
+  $("plGo").textContent = m === "chain" ? "🚀 一键生成(生图→3D→动画)" : "🦴 绑定 + 应用动作";
+}
+async function doPipeline() {
+  const actions = [...plSelectedActions];
+  if (!actions.length) return toast("请至少选一个动作", false);
+  const allowPaid = $("plAllowPaid").checked;
+  if (!allowPaid) {
+    const paid = actions.filter((s) => { const m = ACTION_LIB.find((a) => a.selection === s); return m && !m.free; });
+    if (paid.length) return toast(`${paid.length} 个是 Pro 动作,需勾选"允许 Pro 动作"(付费档)`, false);
+  }
+  $("plGo").disabled = true;
+  $("plLog").innerHTML = "";
+  if (plMode === "rig") {
+    // 只绑已有模型: 走 /v1/3d/animate
+    const body = {
+      model_task_id: $("plRigModel").value.trim() || null,
+      mode: $("plMode").value,
+      actions, allow_paid: allowPaid, wait: true,
+    };
+    $("plStatus").innerHTML = `<span class="spinner"></span> 绑定已有模型 + 应用动作(约 2-3 分钟)...`;
+    plLog("info", "rig existing model on gateway account");
+    try {
+      const d = await api("/v1/3d/animate", { method: "POST", body: JSON.stringify(body) });
+      if (d.status === "succeeded") {
+        $("plStatus").textContent = `✅ 完成`;
+        plLog("ok", `done: ${d.result?.actions?.length ?? 0} actions`);
+        renderRigResult(d);
+      } else {
+        $("plStatus").innerHTML = `<span style="color:var(--red)">❌ ${esc(d.error?.message ?? "")}</span>`;
+        plLog("err", d.error?.message ?? "failed");
+        renderRigResult(d);
+      }
+    } catch (e) {
+      $("plStatus").innerHTML = `<span style="color:var(--red)">${esc(e.message)}</span>`;
+      plLog("err", e.message);
+    } finally { $("plGo").disabled = false; loadPipeline(); }
+    return;
+  }
+  // 一条龙
+  const prompt = $("plPrompt").value.trim();
+  const image_url = $("plImageUrl").value.trim() || null;
+  if (!prompt && !image_url) { $("plGo").disabled = false; return toast("请填 Prompt 或输入图 URL", false); }
+  const body = {
+    prompt, image_url,
+    image_model: $("plImgModel").value,
+    model3d: $("plModel3d").value,
+    target_polycount: Number($("plPoly").value) || null,
+    mode: $("plMode").value,
+    actions, allow_paid: allowPaid,
+  };
+  $("plStatus").innerHTML = `<span class="spinner"></span> 运行中(生图→3D→动画,约 3-6 分钟)...`;
+  plLog("info", "start pipeline on gateway account");
+  try {
+    const d = await api("/v1/pipeline", { method: "POST", body: JSON.stringify(body) });
+    if (d.status === "succeeded") {
+      $("plStatus").textContent = `✅ 完成 (${d.elapsed_seconds}s)`;
+      plLog("ok", `done in ${d.elapsed_seconds}s`);
+      renderPlResult(d);
+    } else {
+      $("plStatus").innerHTML = `<span style="color:var(--red)">❌ 失败: ${esc(d.error?.message ?? "")}</span>`;
+      plLog("err", d.error?.message ?? "failed");
+      renderPlResult(d);
+    }
+  } catch (e) {
+    $("plStatus").innerHTML = `<span style="color:${"var(--red)"}">${esc(e.message)}</span>`;
+    plLog("err", e.message);
+  } finally { $("plGo").disabled = false; loadPipeline(); }
+}
+function renderRigResult(d) {
+  let html = `<div class="kv" style="margin-bottom:12px"><div class="k">账号</div><div class="mono">${esc(d.account)}</div><div class="k">模式</div><div>${esc(d.mode)}</div><div class="k">状态</div><div>${d.status === "succeeded" ? '<span class="tag tag-succeeded">succeeded</span>' : '<span class="tag tag-failed">failed</span>'}</div></div>`;
+  if (d.result?.actions) html += `<div><b>动作 (${d.result.actions.length}):</b><div style="margin-top:6px">${d.result.actions.map((a) => `<a class="link" href="${esc(a.animationGlbUrl)}" target="_blank" style="margin-right:10px">${esc(a.actionType)}</a>`).join("")}</div></div>`;
+  if (d.error) html += `<div style="color:var(--red)">错误: ${esc(d.error.message)}</div>`;
+  $("plResult").innerHTML = html;
+}
+function plLog(kind, msg) {
+  const el = $("plLog");
+  el.innerHTML += `<div class="${kind === "ok" ? "ok" : kind === "err" ? "err" : "info"}"><span class="t">${new Date().toLocaleTimeString()}</span>${esc(msg)}</div>`;
+  el.scrollTop = el.scrollHeight;
+}
+function renderPlResult(d) {
+  const s = d.stages ?? {};
+  let html = `<div class="kv" style="margin-bottom:12px"><div class="k">账号</div><div class="mono">${esc(d.account)}</div><div class="k">状态</div><div>${d.status === "succeeded" ? '<span class="tag tag-succeeded">succeeded</span>' : '<span class="tag tag-failed">failed</span>'}</div><div class="k">耗时</div><div>${d.elapsed_seconds}s</div></div>`;
+  if (s.image) html += `<div style="margin-bottom:10px"><b>① 生图</b> (${s.image.credits ?? "?"}分) <a class="link" href="${esc(s.image.url)}" target="_blank">查看图</a></div>`;
+  if (s.model3d) html += `<div style="margin-bottom:10px"><b>② 3D 模型</b> task=${esc(s.model3d.meshy_task_id ?? "?")} ${s.model3d.glb_plain ? `· <a class="link" href="${esc(s.model3d.glb_plain.url)}" download>GLB(${Math.round((s.model3d.glb_plain.size ?? 0) / 1024)}KB, 明文)</a>` : ""} ${s.model3d.preview ? `· <a class="link" href="${esc(s.model3d.preview)}" target="_blank">预览</a>` : ""}</div>`;
+  if (s.animate) html += `<div style="margin-bottom:10px"><b>③ 动画</b> (${s.animate.actions.length} 个动作):<div style="margin-top:6px">${s.animate.actions.map((a) => `<a class="link" href="${esc(a.animationGlbUrl)}" target="_blank" style="margin-right:10px">${esc(a.actionType)}</a>`).join("")}</div></div>`;
+  if (s.model3d || s.animate) html += `<div class="note" style="border:1px solid var(--yellow);border-radius:8px;padding:10px;margin-top:6px"><b style="color:var(--yellow)">⚠️ 在 Blender 中拼接(两步):</b><br>① File → Import → 导入 <b>② 3D 模型 GLB</b>(明文,含网格+贴图,这就是你的角色外观)<br>② 再导入 <b>③ 动画 GLB</b>(含骨架+动画轨道,无外观) → 在 Outliner 里把模型的 Armature 与动画骨架关联(或直接用动画文件的骨架替换),即可播放。<br>💡 单独的动画 glb 在 gltf-viewer 显示空白是正常的——它是纯骨架动画数据,不含外观。</div>`;
+  if (d.error) html += `<div style="color:var(--red)">错误: ${esc(d.error.message)}</div>`;
+  $("plResult").innerHTML = html;
+}
+
+// ---------- chat workbench ----------
+let chatHistory = [];
+let chatBusy = false;
+function chatRender() {
+  $("chatBox").innerHTML = chatHistory.map((m) =>
+    `<div style="margin-bottom:8px"><span class="tag ${m.role === "user" ? "tag-image" : "tag-chat"}">${m.role === "user" ? "You" : "Assistant"}</span><div style="margin-top:4px;white-space:pre-wrap">${esc(m.content)}</div></div>`
+  ).join("");
+  $("chatBox").scrollTop = $("chatBox").scrollHeight;
+}
+function chatReset() { chatHistory = []; chatRender(); }
+async function doChat() {
+  if (chatBusy) return;
+  const input = $("chatInput").value.trim();
+  if (!input) return;
+  $("chatInput").value = "";
+  chatHistory.push({ role: "user", content: input });
+  chatRender();
+  chatBusy = true; $("chatGo").disabled = true;
+  $("chatStatus").innerHTML = `<span class="spinner"></span> 思考中...`;
+  try {
+    const res = await fetch("/v1/chat/completions", {
+      method: "POST", headers: headers(),
+      body: JSON.stringify({ model: "orchestrator", stream: true, messages: chatHistory }),
+    });
+    if (!res.ok) throw new Error((await res.text()).slice(0, 200));
+    const reader = res.body.getReader();
+    const dec = new TextDecoder();
+    let buf = "", full = "";
+    chatHistory.push({ role: "assistant", content: "" });
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += dec.decode(value, { stream: true });
+      let idx;
+      while ((idx = buf.indexOf("\n")) >= 0) {
+        const line = buf.slice(0, idx).trim(); buf = buf.slice(idx + 1);
+        if (!line.startsWith("data:")) continue;
+        const payload = line.slice(5).trim();
+        if (payload === "[DONE]") continue;
+        let ev; try { ev = JSON.parse(payload); } catch { continue; }
+        const delta = ev.choices?.[0]?.delta?.content;
+        if (delta) {
+          full += delta;
+          chatHistory[chatHistory.length - 1].content = full;
+          chatRender();
+        }
+      }
+    }
+    $("chatStatus").textContent = "";
+    logEv("ok", "chat ok");
+  } catch (e) {
+    $("chatStatus").innerHTML = `<span style="color:var(--red)">${esc(e.message)}</span>`;
+    logEv("err", "chat: " + e.message);
+  } finally { chatBusy = false; $("chatGo").disabled = false; }
+}
+
+// ---------- accounts workbench (credentials.db) ----------
+let ACC_UPLOAD = null; // { file: File, filename }
+let BL_TIMER = null;
+const shortDev = (d) => (d ? esc(String(d).slice(0, 8)) + "…" : "-");
+async function loadBrowserCfg() {
+  try {
+    const c = await api("/v1/gateway/login/browser/config");
+    $("blPort").value = c.port ?? 9222;
+    $("blPath").value = c.path || "";
+    $("blPath").placeholder = c.detectedPath ? `自动探测: ${c.detectedPath}` : "未探测到浏览器，请手动填路径";
+    $("blUrl").value = c.startUrl || "https://www.meshy.ai/";
+  } catch (e) { logEv("err", "browser cfg: " + e.message); }
+}
+function blBody() {
+  return { port: Number($("blPort").value) || 9222, path: $("blPath").value.trim(), startUrl: $("blUrl").value.trim() };
+}
+async function browserLoginStart() {
+  $("blStartBtn").disabled = true;
+  $("blStatus").innerHTML = `<span class="spinner"></span> 启动浏览器中...`;
+  try {
+    const d = await api("/v1/gateway/login/browser/start", { timeoutMs: 60_000, method: "POST", body: JSON.stringify(blBody()) });
+    if (!d.started && d.status !== "waiting") {
+      $("blStatus").innerHTML = `<span style="color:var(--red)">${esc(d.error || d.message || "启动失败")}</span>`;
+      $("blStartBtn").disabled = false;
+      return;
+    }
+    logEv("info", "browser login: launched, waiting for user login");
+    startBlPoll();
+  } catch (e) {
+    $("blStatus").innerHTML = `<span style="color:var(--red)">${esc(e.message)}</span>`;
+    $("blStartBtn").disabled = false;
+  }
+}
+function startBlPoll() {
+  if (BL_TIMER) clearInterval(BL_TIMER);
+  const tick = async () => {
+    try {
+      const d = await api("/v1/gateway/login/browser/status");
+      const el = $("blStatus");
+      if (d.status === "waiting") el.innerHTML = `<span class="spinner"></span> 等待登录中… (${d.elapsedSeconds}s)`;
+      else if (d.status === "captured") {
+        el.innerHTML = `<span style="color:var(--green)">✅ 已捕获: ${esc(d.lastCapture?.email || "")} (${d.lastCapture?.free_credits ?? "?"} 分) — 未自动切换</span>`;
+        clearInterval(BL_TIMER); BL_TIMER = null; $("blStartBtn").disabled = false;
+        loadAccounts(); refreshAll();
+      } else if (d.status === "error") {
+        el.innerHTML = `<span style="color:var(--red)">${esc(d.error || "错误")}</span>`;
+        clearInterval(BL_TIMER); BL_TIMER = null; $("blStartBtn").disabled = false;
+      } else {
+        el.textContent = d.message || d.status;
+        if (d.status === "idle") { clearInterval(BL_TIMER); BL_TIMER = null; $("blStartBtn").disabled = false; }
+      }
+    } catch (e) { clearInterval(BL_TIMER); BL_TIMER = null; $("blStartBtn").disabled = false; }
+  };
+  tick();
+  BL_TIMER = setInterval(tick, 3000);
+}
+async function browserLoginCapture() {
+  try {
+    const d = await api("/v1/gateway/login/browser/capture", { timeoutMs: 40_000, method: "POST" });
+    if (d.captured) {
+      $("blStatus").innerHTML = `<span style="color:var(--green)">✅ 已捕获: ${esc(d.account?.email || "")} (${d.account?.free_credits ?? "?"} 分) — 未自动切换</span>`;
+      toast("已捕获并入库"); if (BL_TIMER) { clearInterval(BL_TIMER); BL_TIMER = null; } $("blStartBtn").disabled = false;
+      loadAccounts(); refreshAll();
+    } else {
+      toast(d.message || "还没检测到登录", false);
+      $("blStatus").innerHTML = `<span style="color:var(--yellow)">${esc(d.message || "还没检测到登录")}</span>`;
+    }
+  } catch (e) { toast(e.message, false); }
+}
+async function browserLoginCancel() {
+  try {
+    await api("/v1/gateway/login/browser/cancel", { method: "POST" });
+    if (BL_TIMER) { clearInterval(BL_TIMER); BL_TIMER = null; }
+    $("blStartBtn").disabled = false;
+    $("blStatus").textContent = "已取消";
+    toast("已关闭浏览器");
+  } catch (e) { toast(e.message, false); }
+}
+async function loadAccounts() {
+  try {
+    const d = await api("/v1/gateway/accounts");
+    const act = await api("/v1/gateway/active").catch(() => null);
+    if (act) {
+      $("accActiveKv").innerHTML = [
+        ["账号", act.active ? `<span class="mono">${esc(act.active)}</span>` : '<span style="color:var(--red)">无</span>'],
+        ["device", `<span class="mono">${shortDev(act.device_id)}</span>`],
+        ["可用积分", act.free_credits ?? "-"],
+        ["Token 到期", act.tokenExpiresAt ? new Date(act.tokenExpiresAt * 1000).toLocaleString() : "-"],
+      ].map(([k, v]) => `<div class="k">${k}</div><div>${v}</div>`).join("");
+    }
+    $("accBody").innerHTML = (d.data ?? []).length ? d.data.map((a) => {
+      const mb = a.credits_breakdown?.freeCreditBalance ?? 0;
+      const pb = (a.credits_breakdown?.creditBalance ?? 0) + (a.credits_breakdown?.shareCreditEarned ?? 0);
+      const exp = a.expires_at ? new Date(a.expires_at * 1000).toLocaleString() : "-";
+      const tag = a.active ? ' <span class="tag tag-succeeded">当前</span>' : "";
+      return `<tr>
+        <td class="mono" style="cursor:pointer" onclick="copyText('${esc(a.email)}','邮箱')" title="点击复制">${esc(a.email)}${tag}</td>
+        <td><b style="color:var(--green)">${a.free_credits ?? "-"}</b></td>
+        <td><span style="color:var(--yellow)" title="月度">月${mb}</span> · <span style="color:var(--green)" title="永久">永${pb}</span></td>
+        <td class="mono">${shortDev(a.device_id)}</td>
+        <td>${esc(exp)}</td>
+        <td>
+          ${a.active ? "" : `<button class="btn btn-primary btn-sm" onclick="switchAccount('${esc(a.email)}')">切换</button>`}
+          <button class="btn btn-outline btn-sm" onclick="refreshAccount('${esc(a.email)}')">刷新</button>
+          ${a.active ? "" : `<button class="btn btn-danger btn-sm" onclick="deleteAccount('${esc(a.email)}')">删除</button>`}
+        </td>
+      </tr>`;
+    }).join("") : `<tr><td colspan="6" class="empty">凭据库为空 — 手动导入或上传 .db</td></tr>`;
+  } catch (e) { logEv("err", "accounts: " + e.message); }
+}
+async function importAccount() {
+  const email = $("accEmail").value.trim();
+  const refresh_token = $("accRt").value.trim();
+  const access_token = $("accAt").value.trim();
+  const device_id = $("accDev").value.trim();
+  if (!email) return toast("请填邮箱", false);
+  if (!device_id) return toast("device_id 必填(必须与浏览器一致)", false);
+  if (!refresh_token && !access_token) return toast("refresh_token 或 access_token 至少填一个", false);
+  $("accImportBtn").disabled = true;
+  $("accImportStatus").innerHTML = `<span class="spinner"></span> 验证并导入中...`;
+  try {
+    const d = await api("/v1/gateway/accounts", {
+      timeoutMs: 60_000, method: "POST",
+      body: JSON.stringify({ email, refresh_token, access_token, device_id, activate: $("accActivate").checked }),
+    });
+    $("accImportStatus").innerHTML = `<span style="color:var(--green)">导入成功: ${esc(d.account?.email)} (${d.account?.free_credits ?? "?"} 分)</span>`;
+    toast("账号已导入 " + (d.account?.free_credits ?? "?") + " 分");
+    $("accRt").value = ""; $("accAt").value = "";
+    loadAccounts(); refreshAll();
+  } catch (e) {
+    $("accImportStatus").innerHTML = `<span style="color:var(--red)">${esc(e.message)}</span>`;
+    toast(e.message, false);
+  } finally { $("accImportBtn").disabled = false; }
+}
+async function parseUploadedDb(files) {
+  const f = files && files[0];
+  if (!f) return;
+  $("accDbStatus").innerHTML = `<span class="spinner"></span> 读取 ${esc(f.name)} ...`;
+  try {
+    const fd = new FormData();
+    fd.append("file", f, f.name);
+    const res = await fetch("/v1/gateway/accounts/upload", { method: "POST", headers: headers(), body: fd });
+    const text = await res.text();
+    let d = null; try { d = JSON.parse(text); } catch {}
+    if (!res.ok) throw new Error((d && d.error && d.error.message) || text.slice(0, 200) || res.status);
+    ACC_UPLOAD = { file: f, filename: f.name };
+    $("accDbStatus").textContent = `${f.name}: 解析到 ${d.total} 个账号`;
+    $("accDbBody").innerHTML = (d.data ?? []).length ? d.data.map((a) => `<tr>
+      <td><input type="checkbox" class="accDbChk" value="${esc(a.email)}" ${a.already_imported ? "" : ""}></td>
+      <td class="mono">${esc(a.email)}</td>
+      <td>${a.free_credits ?? "-"}</td>
+      <td class="mono">${shortDev(a.device_id)}</td>
+      <td>${a.already_imported ? '<span class="tag tag-3d">已在库</span>' : (a.has_refresh_token ? '<span class="tag tag-image">可导入</span>' : '<span class="tag tag-failed">无RT</span>')}</td>
+    </tr>`).join("") : `<tr><td colspan="5" class="empty">该库无账号</td></tr>`;
+  } catch (e) {
+    ACC_UPLOAD = null;
+    $("accDbStatus").innerHTML = `<span style="color:var(--red)">${esc(e.message)}</span>`;
+  }
+}
+function toggleAllDb(on) { document.querySelectorAll(".accDbChk").forEach((c) => { c.checked = on; }); }
+async function importSelectedDb() {
+  if (!ACC_UPLOAD) return toast("请先选择 .db 文件", false);
+  const emails = [...document.querySelectorAll(".accDbChk:checked")].map((c) => c.value);
+  if (!emails.length) return toast("请勾选要导入的账号", false);
+  $("accDbStatus").innerHTML = `<span class="spinner"></span> 导入 ${emails.length} 个账号(逐个验证)...`;
+  try {
+    const fd = new FormData();
+    fd.append("file", ACC_UPLOAD.file, ACC_UPLOAD.filename);
+    fd.append("emails", JSON.stringify(emails));
+    const res = await fetch("/v1/gateway/accounts/import-db", { method: "POST", headers: headers(), body: fd, signal: AbortSignal.timeout(300_000) });
+    const text = await res.text();
+    let d = null; try { d = JSON.parse(text); } catch {}
+    if (!res.ok) throw new Error((d && d.error && d.error.message) || text.slice(0, 200) || res.status);
+    const ok = (d.results ?? []).filter((r) => r.ok);
+    const bad = (d.results ?? []).filter((r) => !r.ok);
+    $("accDbStatus").innerHTML = `导入 ${ok.length}/${emails.length} 成功` +
+      (bad.length ? `<br><span style="color:var(--yellow)">失败: ${bad.map((b) => esc(b.email.split("@")[0]) + "(" + esc(b.error) + ")").join(", ")}</span>` : "");
+    if (bad.length) logEv("err", "db import failures: " + bad.map((b) => b.email + ": " + b.error).join(" | "));
+    else logEv("ok", `db import: ${ok.length} accounts`);
+    loadAccounts(); refreshAll();
+  } catch (e) {
+    $("accDbStatus").innerHTML = `<span style="color:var(--red)">${esc(e.message)}</span>`;
+  }
+}
+async function switchAccount(email) {
+  try {
+    const d = await api("/v1/gateway/accounts/switch", { method: "POST", body: JSON.stringify({ email }) });
+    toast(`已切换到 ${email}`);
+    logEv("ok", `switch account → ${email}`);
+    loadAccounts(); refreshAll();
+  } catch (e) { toast(e.message, false); }
+}
+async function refreshAccount(email) {
+  try {
+    const d = await api("/v1/gateway/accounts/refresh", { timeoutMs: 40_000, method: "POST", body: JSON.stringify({ email }) });
+    toast(`${email}: ${d.account?.free_credits ?? "?"} 分`);
+    loadAccounts(); refreshAll();
+  } catch (e) { toast(e.message, false); }
+}
+async function deleteAccount(email) {
+  if (!confirm(`确定从凭据库删除 ${email}?`)) return;
+  try {
+    await api("/v1/gateway/accounts?email=" + encodeURIComponent(email), { method: "DELETE" });
+    toast("已删除"); loadAccounts();
+  } catch (e) { toast(e.message, false); }
+}
+function copyText(text, label) {
+  navigator.clipboard.writeText(text).then(() => toast(`已复制${label ? " " + label : ""}`)).catch(() => {});
+}
+
+// ---------- boot ----------
+imgLogRender();
+loadModels().then(refreshAll);
+$("imgModel").addEventListener("change", refreshImgAspect);
+$("imgModel").addEventListener("change", refreshImgQuality);
+$("imgMultiView").addEventListener("change", refreshImgAspect);
+renderImgRefs();
+refreshImgQuality();
+refreshImgQuota();
+setInterval(refreshAll, 30000);
+setInterval(refreshImgQuota, 30000);
+logEv("info", "console ready");
+</script>
+</body>
+</html>

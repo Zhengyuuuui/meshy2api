@@ -1,0 +1,48 @@
+{
+  "port": 8090,
+
+  // Bind address. Default 127.0.0.1 = local only (safest). Use "0.0.0.0" to expose
+  // on the LAN/internet — ONLY do that with a non-empty apiKey set below.
+  "host": "127.0.0.1",
+
+  "apiKey": "",
+
+  "dataDir": "./data",
+
+  // Accounts live in this dedicated SQLite file (kept separate from jobs3d/image_log
+  // so the credential pool can be shipped/snapshotted on its own). Import via the
+  // console 账号 page or POST /v1/gateway/accounts*. Empty → <dataDir>/credentials.db
+  "credentialsDb": "./data/credentials.db",
+
+  "decrypt3dGlb": true,
+
+  // ↓ Gateway credentials (overridable by env; never commit real values)
+  //   env: MESHY_ACCESS_TOKEN / MESHY_REFRESH_TOKEN / MESHY_EMAIL / MESHY_DEVICE_ID
+  "gateway": {
+    "accessToken": "",
+    "refreshToken": "",
+    "email": "",
+    "deviceId": ""
+  },
+
+  // Outbound proxy (Clash etc). Direct connection to meshy.ai usually fails in CN.
+  // env MESHY_PROXY / HTTPS_PROXY overrides.
+  "proxy": "http://127.0.0.1:7890",
+
+  "supabase": {
+    "authUrl": "https://auth.meshy.ai",
+    "anonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InluZnJlY2xzeGZncW52Z2ZweGNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU1ODQwNjUsImV4cCI6MjAzMTE2MDA2NX0.015muXUW_O30jeBOxEU9-TQOJigcKMUhkNFbPOWu_iA"
+  },
+
+  "defaults": {
+    "imageModel": "nano-banana-2-lite",
+    "model3d": "meshy-7",
+    "aspectRatio": "1:1"
+  },
+
+  "timeouts": {
+    "imageTurnSeconds": 240,
+    "model3dTurnSeconds": 600,
+    "pollIntervalSeconds": 3
+  }
+}

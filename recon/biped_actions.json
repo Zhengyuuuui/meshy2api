@@ -1,0 +1,5058 @@
+[
+ {
+  "name": "Walking",
+  "selection": -2,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "Running",
+  "selection": -1,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "Idle",
+  "selection": 0,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": "mi/Idle",
+  "free": true
+ },
+ {
+  "name": "Walking_Woman",
+  "selection": 1,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "Alert",
+  "selection": 2,
+  "category": "DailyActions",
+  "subCategory": "LookingAround",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "Arise",
+  "selection": 3,
+  "category": "DailyActions",
+  "subCategory": "LookingAround",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "Attack",
+  "selection": 4,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "BackLeft_run",
+  "selection": 5,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "BackRight_Run",
+  "selection": 6,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "BeHit_FlyUp",
+  "selection": 7,
+  "category": "Fighting",
+  "subCategory": "GettingHit",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "Dead",
+  "selection": 8,
+  "category": "Fighting",
+  "subCategory": "Dying",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "ForwardLeft_Run_Fight",
+  "selection": 9,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "ForwardRight_Run_Fight",
+  "selection": 10,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_02",
+  "selection": 11,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_03",
+  "selection": 12,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Jump_Run",
+  "selection": 13,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Run_02",
+  "selection": 14,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Run_03",
+  "selection": 15,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "RunFast",
+  "selection": 16,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "Skill_01",
+  "selection": 17,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "Skill_02",
+  "selection": 18,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": "bip2mi/Skill_02",
+  "free": false
+ },
+ {
+  "name": "Skill_03",
+  "selection": 19,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": "bip2mi/Skill_03",
+  "free": true
+ },
+ {
+  "name": "Walk_Fight_Back",
+  "selection": 20,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Fight_Forward",
+  "selection": 21,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "FunnyDancing_01",
+  "selection": 22,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "FunnyDancing_02",
+  "selection": 23,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "FunnyDancing_03",
+  "selection": 24,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Agree_Gesture",
+  "selection": 25,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "Angry_Stomp",
+  "selection": 26,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Big_Heart_Gesture",
+  "selection": 27,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Big_Wave_Hello",
+  "selection": 28,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Call_Gesture",
+  "selection": 29,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Casual_Walk",
+  "selection": 30,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "Catching_Breath",
+  "selection": 31,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Chair_Sit_Idle_F",
+  "selection": 32,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Chair_Sit_Idle_M",
+  "selection": 33,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Checkout_Gesture",
+  "selection": 34,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Clapping_Run",
+  "selection": 35,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Confused_Scratch",
+  "selection": 36,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Discuss_While_Moving",
+  "selection": 37,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Dozing_Elderly",
+  "selection": 38,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Excited_Walk_F",
+  "selection": 39,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Excited_Walk_M",
+  "selection": 40,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Formal_Bow",
+  "selection": 41,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Gentlemans_Bow",
+  "selection": 42,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Handbag_Walk",
+  "selection": 43,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Happy_jump_f",
+  "selection": 44,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Indoor_Play",
+  "selection": 45,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Jump_Rope",
+  "selection": 46,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Listening_Gesture",
+  "selection": 47,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Mirror_Viewing",
+  "selection": 48,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Motivational_Cheer",
+  "selection": 49,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Phone_Call_Gesture",
+  "selection": 50,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Shouting_Angrily",
+  "selection": 51,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sit_to_Stand_Transition_F",
+  "selection": 52,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sit_to_Stand_Transition_M",
+  "selection": 53,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Squat_Stance",
+  "selection": 54,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stage_Walk",
+  "selection": 55,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_and_Chat",
+  "selection": 56,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_to_Sit_Transition_M",
+  "selection": 57,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Step_to_Sit_Transition",
+  "selection": 58,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Victory_Cheer",
+  "selection": 59,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_to_Sit",
+  "selection": 60,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "happy_jump_m",
+  "selection": 61,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "penguin_walk",
+  "selection": 62,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Arm_Circle_Shuffle",
+  "selection": 63,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "All_Night_Dance",
+  "selection": 64,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "Bass_Beats",
+  "selection": 65,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Boom_Dance",
+  "selection": 66,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "Bubble_Dance",
+  "selection": 67,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Cherish_Pop_Dance",
+  "selection": 68,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Crystal_Beads",
+  "selection": 69,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Cardio_Dance",
+  "selection": 70,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Denim_Pop_Dance",
+  "selection": 71,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Dont_You_Dare",
+  "selection": 72,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Fast_Lightning",
+  "selection": 73,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Gangnam_Groove",
+  "selection": 74,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Indoor_Swing",
+  "selection": 75,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Love_You_Pop_Dance",
+  "selection": 76,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Magic_Genie",
+  "selection": 77,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Not_Your_Mom",
+  "selection": 78,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "OMG_Groove",
+  "selection": 79,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Pop_Dance_LSA2",
+  "selection": 80,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Pod_Baby_Groove",
+  "selection": 81,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Shake_It_Off_Dance",
+  "selection": 82,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Superlove_Pop_Dance",
+  "selection": 83,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "You_Groove",
+  "selection": 84,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "Axe_Stance",
+  "selection": 85,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Basic_Jump",
+  "selection": 86,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Boxing_Practice",
+  "selection": 87,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "Chest_Pound_Taunt",
+  "selection": 88,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Combat_Stance",
+  "selection": 89,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Counterstrike",
+  "selection": 90,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Double_Blade_Spin",
+  "selection": 91,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Double_Combo_Attack",
+  "selection": 92,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Dodge_and_Counter",
+  "selection": 93,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Flying_Fist_Kick",
+  "selection": 94,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Gun_Hold_Left_Turn",
+  "selection": 95,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Kung_Fu_Punch",
+  "selection": 96,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Left_Slash",
+  "selection": 97,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Run_and_Shoot",
+  "selection": 98,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Reaping_Swing",
+  "selection": 99,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Rightward_Spin",
+  "selection": 100,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sword_Shout",
+  "selection": 101,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sword_Judgment",
+  "selection": 102,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Simple_Kick",
+  "selection": 103,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Side_Shot",
+  "selection": 104,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Triple_Combo_Attack",
+  "selection": 105,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "Confident_Walk",
+  "selection": 106,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Confident_Strut",
+  "selection": 107,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Flirty_Strut",
+  "selection": 108,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Groovy_Walk",
+  "selection": 109,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Hello_Run",
+  "selection": 110,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Injured_Walk",
+  "selection": 111,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Monster_Walk",
+  "selection": 112,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Mummy_Stagger",
+  "selection": 113,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Proud_Strut",
+  "selection": 114,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Quick_Walk",
+  "selection": 115,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Run_to_Walk_Transition",
+  "selection": 116,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Red_Carpet_Walk",
+  "selection": 117,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Skip_Forward",
+  "selection": 118,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Slow_Orc_Walk",
+  "selection": 119,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "Touch_and_Run",
+  "selection": 120,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Thoughtful_Walk",
+  "selection": 121,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Texting_Walk",
+  "selection": 122,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Unsteady_Walk",
+  "selection": 123,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": true
+ },
+ {
+  "name": "Walking_with_Phone",
+  "selection": 124,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Handstand_Flip",
+  "selection": 375,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Punch_Pose",
+  "selection": 376,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Relax_arms_then_strike_battle_pose",
+  "selection": 377,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Large_step_then_high_kick",
+  "selection": 378,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Side_jumps_in_horse_stance",
+  "selection": 379,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Raise_Both_Hands_Cheer_Before_Match",
+  "selection": 380,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Step_Right_for_Exercise",
+  "selection": 381,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Jump_and_Slam_Back_Down",
+  "selection": 382,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Charged_Spell_Cast_2",
+  "selection": 383,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Quick_Step_and_Spin_Dodge",
+  "selection": 384,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Boxing_Warmup",
+  "selection": 385,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Zombie_Scream",
+  "selection": 386,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Half_Squat_with_Thumb_Up",
+  "selection": 387,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Show_Both_Arm_Muscles",
+  "selection": 388,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Grip_and_Throw_Down",
+  "selection": 389,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_on_Pole_and_Balance",
+  "selection": 390,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Head_Hold_in_Pain",
+  "selection": 391,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Ground_Flip_and_Sweep_Up",
+  "selection": 392,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "baseball_pitching",
+  "selection": 393,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Backflip_and_Hooks",
+  "selection": 394,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Breakdance_1990",
+  "selection": 395,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Burpee_Exercise",
+  "selection": 396,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Crouch_Charge_and_Throw",
+  "selection": 398,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Step_Step_Turn_Kick",
+  "selection": 399,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sprint_Roll_and_Flip",
+  "selection": 401,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Run_and_Leap",
+  "selection": 402,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Victory_Fist_Pump",
+  "selection": 403,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Crouch_and_Step_Back",
+  "selection": 404,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Joyful_Dance_with_Hand_Sway",
+  "selection": 405,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Thomas_Flair_to_Jump_Up",
+  "selection": 406,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Wall_Push_Jump_and_Flip",
+  "selection": 407,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Jazz_Hands",
+  "selection": 408,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Finger_Wag_No",
+  "selection": 409,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Kick_a_Soccer_Ball",
+  "selection": 410,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Neck_Slashing_Gesture",
+  "selection": 411,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "victory",
+  "selection": 412,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Backflip_and_Rise",
+  "selection": 413,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Double_kick_forward",
+  "selection": 414,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Happy_Sway_Standing",
+  "selection": 415,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Hit_in_Back_While_Running",
+  "selection": 416,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Hop_with_Arms_Raised",
+  "selection": 417,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Jump_to_Catch_and_Fall",
+  "selection": 419,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Left_Hand_Bitten_Step_Back",
+  "selection": 420,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Over_Shoulder_Throw",
+  "selection": 421,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Rising_Flying_Kick",
+  "selection": 422,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Vault_with_Rifle",
+  "selection": 425,
+  "category": "BodyMovements",
+  "subCategory": "VaultingOverObstacle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Roll_Behind_Cover",
+  "selection": 426,
+  "category": "BodyMovements",
+  "subCategory": "VaultingOverObstacle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Vault_and_Land",
+  "selection": 427,
+  "category": "BodyMovements",
+  "subCategory": "VaultingOverObstacle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Unarmed_Vault",
+  "selection": 428,
+  "category": "BodyMovements",
+  "subCategory": "VaultingOverObstacle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Parkour_Vault",
+  "selection": 429,
+  "category": "BodyMovements",
+  "subCategory": "VaultingOverObstacle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Parkour_Vault_with_Roll",
+  "selection": 430,
+  "category": "BodyMovements",
+  "subCategory": "VaultingOverObstacle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Parkour_Vault_1",
+  "selection": 431,
+  "category": "BodyMovements",
+  "subCategory": "VaultingOverObstacle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Parkour_Vault_2",
+  "selection": 432,
+  "category": "BodyMovements",
+  "subCategory": "VaultingOverObstacle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Parkour_Vault_3",
+  "selection": 433,
+  "category": "BodyMovements",
+  "subCategory": "VaultingOverObstacle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Fast_Ladder_Climb",
+  "selection": 434,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Ladder_Climb_Finish",
+  "selection": 435,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Ladder_Mount_Start",
+  "selection": 436,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Slow_Ladder_Climb",
+  "selection": 437,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Ladder_Climb_Loop",
+  "selection": 438,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Climb_Left_with_Both_Limbs",
+  "selection": 439,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Climb_Right_with_Both_Limbs",
+  "selection": 440,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Climb_Stairs",
+  "selection": 441,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Fast_Stair_Climb",
+  "selection": 442,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "climbing_up_wall",
+  "selection": 444,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "diagonal_wall_run",
+  "selection": 445,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Hang_and_Climb_Left",
+  "selection": 446,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Hang_and_Climb_Rght",
+  "selection": 447,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Jump_and_Grab_Wall",
+  "selection": 448,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Climb_Up_Rope",
+  "selection": 449,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Wall_Flip",
+  "selection": 450,
+  "category": "BodyMovements",
+  "subCategory": "PerformingStunt",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "One_Arm_Handstand",
+  "selection": 451,
+  "category": "BodyMovements",
+  "subCategory": "PerformingStunt",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Backflip",
+  "selection": 452,
+  "category": "BodyMovements",
+  "subCategory": "PerformingStunt",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Backflip_Sweep_Kick",
+  "selection": 453,
+  "category": "BodyMovements",
+  "subCategory": "PerformingStunt",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sweep_Kick",
+  "selection": 455,
+  "category": "BodyMovements",
+  "subCategory": "PerformingStunt",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Jumping_Head_Scissor_Takedown",
+  "selection": 456,
+  "category": "BodyMovements",
+  "subCategory": "PerformingStunt",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Jumping_Punch",
+  "selection": 457,
+  "category": "BodyMovements",
+  "subCategory": "PerformingStunt",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Unicycle_Jump_Dismount",
+  "selection": 458,
+  "category": "BodyMovements",
+  "subCategory": "PerformingStunt",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Run_Jump_and_Roll",
+  "selection": 459,
+  "category": "BodyMovements",
+  "subCategory": "PerformingStunt",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Jump_with_Arms_Open",
+  "selection": 460,
+  "category": "BodyMovements",
+  "subCategory": "Jumping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Jump_with_Arms_and_Legs_Open",
+  "selection": 461,
+  "category": "BodyMovements",
+  "subCategory": "Jumping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Backflip_Jump",
+  "selection": 462,
+  "category": "BodyMovements",
+  "subCategory": "Jumping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Run_and_Jump",
+  "selection": 463,
+  "category": "BodyMovements",
+  "subCategory": "Jumping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Leap_Right_and_Catch",
+  "selection": 465,
+  "category": "BodyMovements",
+  "subCategory": "Jumping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Regular_Jump",
+  "selection": 466,
+  "category": "BodyMovements",
+  "subCategory": "Jumping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Jump_Over_Obstacle_2",
+  "selection": 467,
+  "category": "BodyMovements",
+  "subCategory": "Jumping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Back_Jump",
+  "selection": 468,
+  "category": "BodyMovements",
+  "subCategory": "Jumping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Jumping_Down",
+  "selection": 470,
+  "category": "BodyMovements",
+  "subCategory": "Jumping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Jump_Over_Obstacle",
+  "selection": 471,
+  "category": "BodyMovements",
+  "subCategory": "Jumping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Jump_Over_Obstacle_1",
+  "selection": 472,
+  "category": "BodyMovements",
+  "subCategory": "Jumping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Quad_Jump_Left",
+  "selection": 473,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Quad_Jump_Up",
+  "selection": 474,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Quad_Climb_Right",
+  "selection": 475,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Hang_and_Push_with_Foot",
+  "selection": 476,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Rope_Hang_Idle",
+  "selection": 477,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Bar_Hang_Idle",
+  "selection": 478,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Upside_Down_Rope_Hang",
+  "selection": 479,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Upside_Down_Rope_Hang_1",
+  "selection": 480,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Upside_Down_Rope_Hang_2",
+  "selection": 481,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Grab_Wall_Midair_Idle",
+  "selection": 482,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Slow_Bar_Hang_Left",
+  "selection": 483,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Slow_Bar_Hang_Right",
+  "selection": 484,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Jump_and_Hang_on_Bar",
+  "selection": 485,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Wall_Support_to_Step_Down",
+  "selection": 486,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Climb_Attempt_and_Fall_3",
+  "selection": 487,
+  "category": "BodyMovements",
+  "subCategory": "FallingFreely",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Climb_Attempt_and_Fall_4",
+  "selection": 488,
+  "category": "BodyMovements",
+  "subCategory": "FallingFreely",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Climb_Attempt_and_Fall_5",
+  "selection": 489,
+  "category": "BodyMovements",
+  "subCategory": "FallingFreely",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Fall_Down",
+  "selection": 490,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Fall_from_Bar",
+  "selection": 491,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Wall_Support_Jump_to_Ground",
+  "selection": 492,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Jump_Down_from_Wall",
+  "selection": 493,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Swing_on_Rope_to_Ground",
+  "selection": 494,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Grab_Bar_and_Swing_Forward",
+  "selection": 495,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Rope_Hang_Backflip_to_Crouch",
+  "selection": 496,
+  "category": "BodyMovements",
+  "subCategory": "HangingfromLedge",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "climbing_down_wall",
+  "selection": 497,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Climb_Attempt_and_Fall",
+  "selection": 498,
+  "category": "BodyMovements",
+  "subCategory": "FallingFreely",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Climb_Attempt_and_Fall_1",
+  "selection": 499,
+  "category": "BodyMovements",
+  "subCategory": "FallingFreely",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Climb_Attempt_and_Fall_2",
+  "selection": 500,
+  "category": "BodyMovements",
+  "subCategory": "FallingFreely",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Leap_of_Faith",
+  "selection": 501,
+  "category": "BodyMovements",
+  "subCategory": "FallingFreely",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Fall1",
+  "selection": 502,
+  "category": "BodyMovements",
+  "subCategory": "FallingFreely",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Fall2",
+  "selection": 503,
+  "category": "BodyMovements",
+  "subCategory": "FallingFreely",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Fall3",
+  "selection": 504,
+  "category": "BodyMovements",
+  "subCategory": "FallingFreely",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Fall4",
+  "selection": 505,
+  "category": "BodyMovements",
+  "subCategory": "FallingFreely",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Dive_Down_and_Land",
+  "selection": 506,
+  "category": "BodyMovements",
+  "subCategory": "FallingFreely",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Dive_Down_and_Land_1",
+  "selection": 507,
+  "category": "BodyMovements",
+  "subCategory": "FallingFreely",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Dive_Down_and_Land_2",
+  "selection": 508,
+  "category": "BodyMovements",
+  "subCategory": "FallingFreely",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_3",
+  "selection": 243,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_4",
+  "selection": 244,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_5",
+  "selection": 245,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_6",
+  "selection": 246,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_7",
+  "selection": 247,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_8",
+  "selection": 248,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_9",
+  "selection": 249,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_10",
+  "selection": 250,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_11",
+  "selection": 251,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_12",
+  "selection": 252,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_13",
+  "selection": 253,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_14",
+  "selection": 254,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Angry_Ground_Stomp",
+  "selection": 255,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Angry_Ground_Stomp_1",
+  "selection": 256,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Angry_Ground_Stomp_2",
+  "selection": 257,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "CrouchLookAroundBow",
+  "selection": 258,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Step_Forward_and_Push",
+  "selection": 259,
+  "category": "DailyActions",
+  "subCategory": "Pushing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Push_Forward_and_Stop",
+  "selection": 260,
+  "category": "DailyActions",
+  "subCategory": "Pushing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Push_and_Walk_Forward",
+  "selection": 261,
+  "category": "DailyActions",
+  "subCategory": "Pushing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Crouch_and_Push_Forward",
+  "selection": 262,
+  "category": "DailyActions",
+  "subCategory": "Pushing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sleep_on_Desk",
+  "selection": 263,
+  "category": "DailyActions",
+  "subCategory": "Sleeping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Cough_While_Sleeping",
+  "selection": 264,
+  "category": "DailyActions",
+  "subCategory": "Sleeping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Groan_Holding_Stomach_in_Sleep",
+  "selection": 265,
+  "category": "DailyActions",
+  "subCategory": "Sleeping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Lie_Down_Hands_Spread",
+  "selection": 266,
+  "category": "DailyActions",
+  "subCategory": "Sleeping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sleep_Normally",
+  "selection": 267,
+  "category": "DailyActions",
+  "subCategory": "Sleeping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sit_and_Doze_Off",
+  "selection": 268,
+  "category": "DailyActions",
+  "subCategory": "Sleeping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "sleep",
+  "selection": 269,
+  "category": "DailyActions",
+  "subCategory": "Sleeping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Toss_and_Turn",
+  "selection": 270,
+  "category": "DailyActions",
+  "subCategory": "Sleeping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Wake_Up_and_Look_Up",
+  "selection": 271,
+  "category": "DailyActions",
+  "subCategory": "Sleeping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Lie_on_Chair_Sunbathe_and_Sleep",
+  "selection": 272,
+  "category": "DailyActions",
+  "subCategory": "Sleeping",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Male_Run_Forward_Pick_Up_Left",
+  "selection": 273,
+  "category": "DailyActions",
+  "subCategory": "PickingUpItem",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Female_Crouch_Pick_Up_Place_Side",
+  "selection": 274,
+  "category": "DailyActions",
+  "subCategory": "PickingUpItem",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Female_Run_Forward_Pick_Up_Right",
+  "selection": 275,
+  "category": "DailyActions",
+  "subCategory": "PickingUpItem",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Male_Bend_Over_Pick_Up",
+  "selection": 276,
+  "category": "DailyActions",
+  "subCategory": "PickingUpItem",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Female_Crouch_Pick_Fruit_Basket_Stand",
+  "selection": 277,
+  "category": "DailyActions",
+  "subCategory": "PickingUpItem",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Female_Stand_Pick_Fruit_Basket",
+  "selection": 278,
+  "category": "DailyActions",
+  "subCategory": "PickingUpItem",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Female_Crouch_Pick_Gun_Point_Forward",
+  "selection": 279,
+  "category": "DailyActions",
+  "subCategory": "PickingUpItem",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Female_Crouch_Pick_Throw_Forward",
+  "selection": 280,
+  "category": "DailyActions",
+  "subCategory": "PickingUpItem",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Female_Bend_Over_Pick_Up_Inspect",
+  "selection": 281,
+  "category": "DailyActions",
+  "subCategory": "PickingUpItem",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Female_Walk_Pick_Put_In_Pocket",
+  "selection": 282,
+  "category": "DailyActions",
+  "subCategory": "PickingUpItem",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Pull_Radish",
+  "selection": 283,
+  "category": "DailyActions",
+  "subCategory": "PickingUpItem",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Collect_Object",
+  "selection": 284,
+  "category": "DailyActions",
+  "subCategory": "PickingUpItem",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "open_door",
+  "selection": 285,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": "bip2mi/open_door_1",
+  "free": false
+ },
+ {
+  "name": "open_door_1",
+  "selection": 286,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "open_door_2",
+  "selection": 287,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "open_door_3",
+  "selection": 288,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "open_door_4",
+  "selection": 289,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Wave_One_Hand",
+  "selection": 290,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Wave_for_Help",
+  "selection": 291,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Gesture_with_Hand_on_Gun",
+  "selection": 292,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Wave_for_Help_1",
+  "selection": 293,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Wave_for_Help_2",
+  "selection": 294,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Wave_for_Help_3",
+  "selection": 295,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Wave_for_Help_4",
+  "selection": 296,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Personalized_Gesture",
+  "selection": 297,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Cheer_with_Both_Hands_Up",
+  "selection": 298,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Clap_and_Sit_Down",
+  "selection": 299,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sit_Cheer_with_Left_Hand",
+  "selection": 300,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Cheer_with_Both_Hands_1",
+  "selection": 301,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Wave_and_Sit_Down",
+  "selection": 302,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Cheer_with_Both_Hands",
+  "selection": 303,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Seated_Fist_Pump",
+  "selection": 304,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Cheer_and_Sit_Down",
+  "selection": 305,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sitting_Answering_Questions",
+  "selection": 307,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Talk_Passionately",
+  "selection": 308,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Talk_with_Left_Hand_on_Hip",
+  "selection": 309,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Talk_with_Left_Hand_Raised",
+  "selection": 310,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Talking_Angry",
+  "selection": 311,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Phone_Conversation",
+  "selection": 312,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Talk_with_Hands_Open",
+  "selection": 313,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Talk_with_Right_Hand_Open",
+  "selection": 314,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Hand_on_Hip_Gesture",
+  "selection": 315,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Headache_Relief",
+  "selection": 316,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Shrug",
+  "selection": 317,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Scheming_Hand_Rub",
+  "selection": 318,
+  "category": "DailyActions",
+  "subCategory": "Interacting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "air_squat",
+  "selection": 319,
+  "category": "DailyActions",
+  "subCategory": "WorkingOut",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "bicep_curl",
+  "selection": 320,
+  "category": "DailyActions",
+  "subCategory": "WorkingOut",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "bicycle_crunch",
+  "selection": 321,
+  "category": "DailyActions",
+  "subCategory": "WorkingOut",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "circle_crunch",
+  "selection": 322,
+  "category": "DailyActions",
+  "subCategory": "WorkingOut",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "golf_drive",
+  "selection": 323,
+  "category": "DailyActions",
+  "subCategory": "WorkingOut",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "idle_to_push_up",
+  "selection": 324,
+  "category": "DailyActions",
+  "subCategory": "WorkingOut",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "jump_push_up",
+  "selection": 325,
+  "category": "DailyActions",
+  "subCategory": "WorkingOut",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "jumping_jacks",
+  "selection": 326,
+  "category": "DailyActions",
+  "subCategory": "WorkingOut",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "kettlebell_swing",
+  "selection": 327,
+  "category": "DailyActions",
+  "subCategory": "WorkingOut",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "push_up_to_idle",
+  "selection": 328,
+  "category": "DailyActions",
+  "subCategory": "WorkingOut",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "push_up",
+  "selection": 329,
+  "category": "DailyActions",
+  "subCategory": "WorkingOut",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "situps",
+  "selection": 330,
+  "category": "DailyActions",
+  "subCategory": "WorkingOut",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sumo_High_Pull",
+  "selection": 331,
+  "category": "DailyActions",
+  "subCategory": "WorkingOut",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Look_Around_Dumbfounded",
+  "selection": 333,
+  "category": "DailyActions",
+  "subCategory": "LookingAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Lower_Weapon_Look_Raise",
+  "selection": 334,
+  "category": "DailyActions",
+  "subCategory": "LookingAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Axe_Breathe_and_Look_Around",
+  "selection": 335,
+  "category": "DailyActions",
+  "subCategory": "LookingAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Long_Breathe_and_Look_Around",
+  "selection": 336,
+  "category": "DailyActions",
+  "subCategory": "LookingAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Torch_Look_Around",
+  "selection": 337,
+  "category": "DailyActions",
+  "subCategory": "LookingAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Short_Breathe_and_Look_Around",
+  "selection": 338,
+  "category": "DailyActions",
+  "subCategory": "LookingAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walking_Scan_with_Sudden_Look_Back",
+  "selection": 339,
+  "category": "DailyActions",
+  "subCategory": "LookingAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Crawl_and_Look_Back",
+  "selection": 340,
+  "category": "DailyActions",
+  "subCategory": "LookingAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Slowly_and_Look_Around",
+  "selection": 341,
+  "category": "DailyActions",
+  "subCategory": "LookingAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_and_Drink",
+  "selection": 342,
+  "category": "DailyActions",
+  "subCategory": "Drinking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sit_and_Drink",
+  "selection": 343,
+  "category": "DailyActions",
+  "subCategory": "Drinking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Up1",
+  "selection": 344,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Up2",
+  "selection": 345,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Up3",
+  "selection": 346,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Up4",
+  "selection": 347,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Up5",
+  "selection": 348,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Up6",
+  "selection": 349,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Up7",
+  "selection": 350,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Up8",
+  "selection": 351,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Up9",
+  "selection": 352,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Up10",
+  "selection": 353,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sitting_Clap",
+  "selection": 354,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sit_Finger_Wag_No",
+  "selection": 355,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sit_Hands_on_Head_Lean_Back",
+  "selection": 356,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sit_Thumbs_Up_Right",
+  "selection": 357,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sit_Shout_Hands_on_Mouth",
+  "selection": 358,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Look_Back_and_Sit",
+  "selection": 359,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sit_to_standTransition_Female_2",
+  "selection": 360,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sit_Dodge",
+  "selection": 361,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sit_Cross_Legged",
+  "selection": 362,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sit_Cross_Legged_on_Floor",
+  "selection": 363,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sit_on_Chair_Arms_Crossed",
+  "selection": 364,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Kneel_on_One_Knee_and_Stand",
+  "selection": 365,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "falling_down",
+  "selection": 366,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "SideLying_Reach_Help",
+  "selection": 367,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Angry_To_Tantrum_Sit",
+  "selection": 368,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Lie_Back_Leg_Swing",
+  "selection": 369,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_To_Side_Lying",
+  "selection": 370,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sit_Lie_Bed",
+  "selection": 371,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Prone_Reach_Help",
+  "selection": 372,
+  "category": "DailyActions",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_15",
+  "selection": 599,
+  "category": "DailyActions",
+  "subCategory": "Idle",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Charged_Spell_Cast",
+  "selection": 125,
+  "category": "Fighting",
+  "subCategory": "CastingSpell",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Charged_Spell_Cast_1",
+  "selection": 126,
+  "category": "Fighting",
+  "subCategory": "CastingSpell",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Charged_Ground_Slam",
+  "selection": 127,
+  "category": "Fighting",
+  "subCategory": "CastingSpell",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Heavy_Hammer_Swing",
+  "selection": 128,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "mage_soell_cast",
+  "selection": 129,
+  "category": "Fighting",
+  "subCategory": "CastingSpell",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "mage_soell_cast_1",
+  "selection": 130,
+  "category": "Fighting",
+  "subCategory": "CastingSpell",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "mage_soell_cast_2",
+  "selection": 131,
+  "category": "Fighting",
+  "subCategory": "CastingSpell",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "mage_soell_cast_3",
+  "selection": 132,
+  "category": "Fighting",
+  "subCategory": "CastingSpell",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "mage_soell_cast_4",
+  "selection": 133,
+  "category": "Fighting",
+  "subCategory": "CastingSpell",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "mage_soell_cast_5",
+  "selection": 134,
+  "category": "Fighting",
+  "subCategory": "CastingSpell",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "mage_soell_cast_6",
+  "selection": 135,
+  "category": "Fighting",
+  "subCategory": "CastingSpell",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "mage_soell_cast_7",
+  "selection": 136,
+  "category": "Fighting",
+  "subCategory": "CastingSpell",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "mage_soell_cast_8",
+  "selection": 137,
+  "category": "Fighting",
+  "subCategory": "CastingSpell",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Block1",
+  "selection": 138,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Block2",
+  "selection": 139,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Block3",
+  "selection": 140,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Block4",
+  "selection": 141,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Block5",
+  "selection": 142,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Block6",
+  "selection": 143,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Block8",
+  "selection": 144,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Block9",
+  "selection": 145,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Block10",
+  "selection": 146,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sword_Parry",
+  "selection": 147,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sword_Parry_Backward",
+  "selection": 148,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Two_Handed_Parry",
+  "selection": 149,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Hit_Reaction_with_Bow",
+  "selection": 150,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sword_Parry_Backward_1",
+  "selection": 151,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sword_Parry_Backward_2",
+  "selection": 152,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sword_Parry_Backward_3",
+  "selection": 153,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sword_Parry_Backward_4",
+  "selection": 154,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sword_Parry_Backward_5",
+  "selection": 155,
+  "category": "Fighting",
+  "subCategory": "Blocking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Dodge",
+  "selection": 156,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Dodge_1",
+  "selection": 157,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Roll_Dodge",
+  "selection": 158,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Roll_Dodge_1",
+  "selection": 159,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Roll_Dodge_2",
+  "selection": 160,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Roll_Dodge_3",
+  "selection": 161,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Dodge_2",
+  "selection": 162,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Roll_Dodge_4",
+  "selection": 163,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stand_Dodge_3",
+  "selection": 164,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Kneeling_Reload",
+  "selection": 165,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Running_Reload",
+  "selection": 166,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Slow_Walk_Reload",
+  "selection": 167,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Prone_Reload",
+  "selection": 168,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Forward_Reload_Subtle",
+  "selection": 169,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Standing_Reload",
+  "selection": 170,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Hit_Reaction_to_Waist",
+  "selection": 171,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Electrocution_Reaction",
+  "selection": 172,
+  "category": "Fighting",
+  "subCategory": "GettingHit",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Slap_Reaction",
+  "selection": 173,
+  "category": "Fighting",
+  "subCategory": "GettingHit",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Face_Punch_Reaction",
+  "selection": 174,
+  "category": "Fighting",
+  "subCategory": "GettingHit",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Face_Punch_Reaction_1",
+  "selection": 175,
+  "category": "Fighting",
+  "subCategory": "GettingHit",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Face_Punch_Reaction_2",
+  "selection": 176,
+  "category": "Fighting",
+  "subCategory": "GettingHit",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Gunshot_Reaction",
+  "selection": 177,
+  "category": "Fighting",
+  "subCategory": "GettingHit",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Hit_Reaction",
+  "selection": 178,
+  "category": "Fighting",
+  "subCategory": "GettingHit",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Hit_Reaction_1",
+  "selection": 179,
+  "category": "Fighting",
+  "subCategory": "GettingHit",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Shot_in_the_Back_and_Fall",
+  "selection": 180,
+  "category": "Fighting",
+  "subCategory": "GettingHit",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Electrocuted_Fall",
+  "selection": 181,
+  "category": "Fighting",
+  "subCategory": "Dying",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Shot_and_Blown_Back",
+  "selection": 182,
+  "category": "Fighting",
+  "subCategory": "Dying",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Shot_and_Fall_Backward",
+  "selection": 183,
+  "category": "Fighting",
+  "subCategory": "Dying",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Shot_and_Fall_Forward",
+  "selection": 184,
+  "category": "Fighting",
+  "subCategory": "Dying",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Shot_and_Slow_Fall_Backward",
+  "selection": 185,
+  "category": "Fighting",
+  "subCategory": "Dying",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Strangled_and_Fall_Forward",
+  "selection": 186,
+  "category": "Fighting",
+  "subCategory": "Dying",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Knock_Down",
+  "selection": 187,
+  "category": "Fighting",
+  "subCategory": "Dying",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Fall_Dead_from_Abdominal_Injury",
+  "selection": 188,
+  "category": "Fighting",
+  "subCategory": "Dying",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "dying_backwards",
+  "selection": 189,
+  "category": "Fighting",
+  "subCategory": "Dying",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Knock_Down_1",
+  "selection": 190,
+  "category": "Fighting",
+  "subCategory": "Dying",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Left_Jab_from_Guard",
+  "selection": 191,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Right_Jab_from_Guard",
+  "selection": 192,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Left_Hook_from_Guard",
+  "selection": 193,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Right_Uppercut_from_Guard",
+  "selection": 194,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Right_Upper_Hook_from_Guard",
+  "selection": 195,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Left_Uppercut_from_Guard",
+  "selection": 196,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Left_Short_Hook_from_Guard",
+  "selection": 197,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Punch_Combo",
+  "selection": 198,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Weapon_Combo",
+  "selection": 199,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Punch_Combo_1",
+  "selection": 200,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Punch_Combo_2",
+  "selection": 201,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Weapon_Combo_1",
+  "selection": 202,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Punch_Combo_3",
+  "selection": 203,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Punch_Combo_4",
+  "selection": 204,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Punch_Combo_5",
+  "selection": 205,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Spartan_Kick",
+  "selection": 206,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Roundhouse_Kick",
+  "selection": 207,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Lunge_Roundhouse_Kick",
+  "selection": 208,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Boxing_Guard_Right_Straight_Kick",
+  "selection": 209,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Boxing_Guard_Prep_Straight_Punch",
+  "selection": 210,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Boxing_Guard_Step_Knee_Strike",
+  "selection": 211,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Elbow_Strike",
+  "selection": 212,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Leg_Sweep",
+  "selection": 213,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Punch_Forward_with_Both_Fists",
+  "selection": 214,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "High_Kick",
+  "selection": 215,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Lunge_Spin_Kick",
+  "selection": 216,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sweeping_Kick",
+  "selection": 217,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Step_in_High_Kick",
+  "selection": 218,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Right_Hand_Sword_Slash",
+  "selection": 219,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Shield_Push_Left",
+  "selection": 220,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Charged_Upward_Slash",
+  "selection": 221,
+  "category": "Fighting",
+  "subCategory": "Punching",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Draw_and_Shoot_from_Back",
+  "selection": 222,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Draw_and_Shoot_from_Back_1",
+  "selection": 223,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Archery_Shot",
+  "selection": 224,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Archery_Shot_1",
+  "selection": 225,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Archery_Shot_2",
+  "selection": 226,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Archery_Shot_3",
+  "selection": 227,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Forward_with_Bow_Aimed",
+  "selection": 228,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Draw_and_Shoot_from_Back_2",
+  "selection": 229,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward_with_Bow_Aimed",
+  "selection": 230,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Archery_Aim_with_Lateral_Scan",
+  "selection": 231,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Cowboy_Quick_Draw_Shooting",
+  "selection": 232,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward_While_Shooting",
+  "selection": 233,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Forward_While_Shooting",
+  "selection": 234,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Forward_Roll_and_Fire",
+  "selection": 235,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Draw_and_Shoot_Left",
+  "selection": 236,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Charged_Axe_Chop",
+  "selection": 237,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Axe_Spin_Attack",
+  "selection": 238,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Crouch_Pull_and_Throw",
+  "selection": 239,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Thrust_Slash",
+  "selection": 240,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Weapon_Combo_2",
+  "selection": 241,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Charged_Slash",
+  "selection": 242,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Lean_Forward_Sprint",
+  "selection": 509,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Standard_Forward_Charge",
+  "selection": 510,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Rifle_Charge",
+  "selection": 511,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Male_Head_Down_Charge",
+  "selection": 512,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Female_Head_Down_Charge",
+  "selection": 513,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Female_Bow_Charge_Left_Hand",
+  "selection": 514,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Female_Throwing_Stance_Charge",
+  "selection": 515,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "slide_light",
+  "selection": 516,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "slide_right",
+  "selection": 517,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "sliding_rool",
+  "selection": 518,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "sliding_stumble",
+  "selection": 519,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Crouch_Walk_with_Torch",
+  "selection": 520,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Crouch_Walk_Left_with_Torch",
+  "selection": 521,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Crouch_Walk_Right_with_Torch",
+  "selection": 522,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Cautious_Crouch_Walk_Backward",
+  "selection": 523,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Cautious_Crouch_Walk_Forward",
+  "selection": 524,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Cautious_Crouch_Walk_Left",
+  "selection": 525,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Crouch_Walk_Left_with_Gun",
+  "selection": 527,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Left_with_Gun",
+  "selection": 528,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward_with_Gun",
+  "selection": 529,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "run_fast_3",
+  "selection": 530,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sprint_and_Sudden_Stop",
+  "selection": 531,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "run_fast_4",
+  "selection": 532,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "run_fast_5",
+  "selection": 533,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "run_fast_6",
+  "selection": 534,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "run_fast_7",
+  "selection": 535,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "run_fast_8",
+  "selection": 536,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "run_fast_9",
+  "selection": 537,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "run_fast_10",
+  "selection": 538,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "run_fast_2",
+  "selection": 539,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Injured_Walk_Backward",
+  "selection": 540,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward_with_Gun_1",
+  "selection": 541,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward_with_Grenade",
+  "selection": 542,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Step_Back",
+  "selection": 543,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward",
+  "selection": 544,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward_with_Bow",
+  "selection": 545,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward_with_Sword",
+  "selection": 546,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward_with_Bow_1",
+  "selection": 547,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward_with_Sword_Shield",
+  "selection": 548,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Crawl_Backward",
+  "selection": 549,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Carry_Heavy_Cannon_Forward",
+  "selection": 550,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Carry_Heavy_Object_Walk",
+  "selection": 551,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Carry_Water_Bucket_Walk",
+  "selection": 552,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Elderly_Shaky_Walk",
+  "selection": 553,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Funky_Walk",
+  "selection": 554,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Limping_Walk_1",
+  "selection": 555,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Limping_Walk_2",
+  "selection": 556,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Limping_Walk_3",
+  "selection": 557,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Limping_Walk",
+  "selection": 558,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sneaky_Walk",
+  "selection": 559,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Spear_Walk",
+  "selection": 560,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Step_Hip_Hop_Dance",
+  "selection": 561,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stumble_Walk",
+  "selection": 562,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stylish_Walk",
+  "selection": 563,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Tightrope_Walk",
+  "selection": 564,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_with_Umbrella",
+  "selection": 565,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "walking_2",
+  "selection": 566,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_with_Walker_Support",
+  "selection": 567,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Swim_Idle",
+  "selection": 568,
+  "category": "WalkAndRun",
+  "subCategory": "Swimming",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Swim_Forward",
+  "selection": 569,
+  "category": "WalkAndRun",
+  "subCategory": "Swimming",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "swimming_to_edge",
+  "selection": 570,
+  "category": "WalkAndRun",
+  "subCategory": "Swimming",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Run_Turn_Left",
+  "selection": 571,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Turn_Left",
+  "selection": 572,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Rifle_Turn_Left",
+  "selection": 573,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Turn_Left_with_Weapon",
+  "selection": 574,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Combat_Idle_Turn_Left",
+  "selection": 575,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_Turn_Left",
+  "selection": 576,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_Step_Turn_Left",
+  "selection": 577,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_Torch_Turn_Left",
+  "selection": 578,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Depressed_Full_Turn_Left",
+  "selection": 579,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sword_and_Shield_Alert_Turn_Left",
+  "selection": 580,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Run_Sharp_Turn_Right",
+  "selection": 581,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Run_Turn_Right",
+  "selection": 582,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Turn_Right",
+  "selection": 583,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Turn_Right_Female",
+  "selection": 584,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Rifle_Aim_Turn_Right",
+  "selection": 585,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Idle_Turn_Right",
+  "selection": 586,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Turn_Right_Idle_Style",
+  "selection": 587,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Frustrated_Turn_Right",
+  "selection": 588,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Alert_Quick_Turn_Right",
+  "selection": 589,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sword_and_Shield_Alert_Turn_Right",
+  "selection": 590,
+  "category": "WalkAndRun",
+  "subCategory": "TurningAround",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Hip_Hop_Dance",
+  "selection": 591,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": "bip2mi/Hip_Hop_Dance_1",
+  "free": false
+ },
+ {
+  "name": "Hip_Hop_Dance_1",
+  "selection": 592,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Hip_Hop_Dance_2",
+  "selection": 593,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Hip_Hop_Dance_3",
+  "selection": 594,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "jazz_danc",
+  "selection": 595,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "ymca_dance",
+  "selection": 596,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Hip_Hop_Dance_4",
+  "selection": 597,
+  "category": "Dancing",
+  "subCategory": "Dancing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Carry_Heavy_Object_Walk_inplace",
+  "selection": 611,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Cautious_Crouch_Walk_Backward_inplace",
+  "selection": 615,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Cautious_Crouch_Walk_Forward_inplace",
+  "selection": 616,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Cautious_Crouch_Walk_Left_inplace",
+  "selection": 617,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Cautious_Crouch_Walk_Right_inplace",
+  "selection": 618,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Climb_Left_with_Both_Limbs_inplace",
+  "selection": 619,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Climb_Right_with_Both_Limbs_inplace",
+  "selection": 620,
+  "category": "BodyMovements",
+  "subCategory": "Climbing",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Crawl_Backward_inplace",
+  "selection": 622,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Crouch_Walk_Left_with_Gun_inplace",
+  "selection": 623,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Crouch_Walk_Left_with_Torch_inplace",
+  "selection": 624,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Crouch_Walk_Right_with_Torch_inplace",
+  "selection": 625,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Elderly_Shaky_Walk_inplace",
+  "selection": 626,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Female_Bow_Charge_Left_Hand_inplace",
+  "selection": 627,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Female_Throwing_Stance_Charge_inplace",
+  "selection": 628,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Flirty_Strut_inplace",
+  "selection": 629,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Injured_Walk_Backward_inplace",
+  "selection": 638,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Jazz_Hands_inplace",
+  "selection": 639,
+  "category": "BodyMovements",
+  "subCategory": "Acting",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Lean_Forward_Sprint_inplace",
+  "selection": 644,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Limping_Walk_inplace",
+  "selection": 645,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Limping_Walk_2_inplace",
+  "selection": 647,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Limping_Walk_3_inplace",
+  "selection": 648,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Rifle_Charge_inplace",
+  "selection": 654,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "run_fast_10_inplace",
+  "selection": 657,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "run_fast_3_inplace",
+  "selection": 659,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "run_fast_6_inplace",
+  "selection": 662,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "run_fast_7_inplace",
+  "selection": 663,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "run_fast_8_inplace",
+  "selection": 664,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Running_Reload_inplace",
+  "selection": 666,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Slow_Walk_Reload_inplace",
+  "selection": 670,
+  "category": "Fighting",
+  "subCategory": "Transitioning",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Sneaky_Walk_inplace",
+  "selection": 671,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Standard_Forward_Charge_inplace",
+  "selection": 673,
+  "category": "WalkAndRun",
+  "subCategory": "Running",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Stylish_Walk_inplace",
+  "selection": 675,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Tightrope_Walk_inplace",
+  "selection": 677,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward_inplace",
+  "selection": 679,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward_While_Shooting_inplace",
+  "selection": 680,
+  "category": "Fighting",
+  "subCategory": "AttackingwithWeapon",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward_with_Bow_inplace",
+  "selection": 681,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward_with_Bow_1_inplace",
+  "selection": 682,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward_with_Grenade_inplace",
+  "selection": 684,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward_with_Gun_inplace",
+  "selection": 685,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward_with_Gun_1_inplace",
+  "selection": 686,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Backward_with_Sword_inplace",
+  "selection": 687,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "walking_2_inplace",
+  "selection": 692,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_Left_with_Gun_inplace",
+  "selection": 694,
+  "category": "WalkAndRun",
+  "subCategory": "CrouchWalking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_with_Umbrella_inplace",
+  "selection": 695,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ },
+ {
+  "name": "Walk_with_Walker_Support_inplace",
+  "selection": 696,
+  "category": "WalkAndRun",
+  "subCategory": "Walking",
+  "clipPath": null,
+  "free": false
+ }
+]

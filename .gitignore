@@ -1,0 +1,53 @@
+# ---------- credentials & runtime data (NEVER commit) ----------
+# accounts (access/refresh tokens, device ids), sessions, job/image DBs, GLB cache
+data/
+data-*/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+session.json
+*_upload_*.db*
+browser-profile/
+
+# ---------- real configs (contain tokens / apiKeys / device ids) ----------
+config.json
+config-*.json
+*.local.json
+!config.example.json
+
+# ---------- logs ----------
+*.log
+logs/
+
+# ---------- secrets / dumps ----------
+*.pem
+*.key
+*.p12
+id_rsa*
+.env
+.env.*
+!.env.example
+
+# ---------- node / build ----------
+node_modules/
+dist/
+build/
+__pycache__/
+*.pyc
+*.pyo
+
+# ---------- editor / OS ----------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ---------- misc ----------
+*.bak
+*.tmp
+console_*.html.bak
