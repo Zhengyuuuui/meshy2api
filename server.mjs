@@ -748,7 +748,12 @@ class GatewayClient {
       args: {
         draft: {
           aiModel, license, shouldTransferImageStyle: true, ultraMode: false, modelType,
-          autoSplit: false, autoTexture: false, multiView: !!multiView, poseMode: "",
+          autoSplit: false,
+          // texture switch for the single-draft chained task lives here (args.draft.autoTexture);
+          // args.generate.isUseTexture is the two-step flow and is ignored for draft.
+          autoTexture: !!shouldTexture,
+          ...(shouldTexture ? { autoTextureAIModel: "blueberry" } : {}),
+          multiView: !!multiView, poseMode: "",
           imageIds: [`${String(imageId).replace(/\.[a-z0-9]{2,5}$/i, "")}.${ext}`],
           prompt,
         },
@@ -2031,8 +2036,10 @@ async function handle3dGeneration(req, res, body) {
 
   const projectId = await ensureProject();
 
-  // ---- preferred: official REST protocol (POST /v2/tasks: draft) ----
-  if (spec.aiModel) {
+  // ---- REST direct-draft only produces UNTEXTURED models (phase=generate). To get
+  //      textures we must use the agent turn path (image_to_3d tool + should_texture),
+  //      which yields phase=image-to-3d-texture. So REST is used only when texture is off. ----
+  if (spec.aiModel && !shouldTexture) {
     const id = jobs3d.nextId();
     const job = { id, status: "running", model, prompt, projectId, createdAt: Date.now(), account: gw.email || "gateway", protocol: "rest" };
     jobs3d.create(job);
@@ -2093,7 +2100,7 @@ async function handle3dGeneration(req, res, body) {
     return jsonOk(res, { id, status: "running", model, protocol: "rest", aiModel: spec.aiModel, account: job.account });
   }
 
-  // ---- fallback: agent turn protocol (T2) ----
+  // ---- agent turn protocol (T2, or textured meshy-6/7 — REST can't texture) ----
   await ensureToolAutoApprove();
   await setPreferences({ image_to_3d_pipeline: spec.pipeline });
   const up = await uploadImageArtifact(imageUrl, { projectId });
