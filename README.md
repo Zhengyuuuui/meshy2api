@@ -62,14 +62,29 @@ open http://127.0.0.1:8090/console
 env  >  credentials.db 当前账号  >  config.json → gateway  >  data/session.json
 ```
 
+### 导入方式一览
+
+共有 **4 种**把账号放进凭据库的方式（全部走同一张 `accounts` 表）：
+
+| # | 方式 | 入口 | 需要什么 |
+|---|---|---|---|
+| 1 | **浏览器登录**（推荐） | 控制台「账号」页按钮 / `/v1/gateway/login/browser/*` | 机器上有 Chrome/Edge + 有头环境；它负责**登录并捕获**，无需手动找 token |
+| 2 | **手动粘贴** | 控制台表单 / `POST /v1/gateway/accounts` | 已知 `email` + `refresh_token` + `device_id`（`access_token` 可选） |
+| 3 | **上传数据库文件** | 控制台上传 / `POST /v1/gateway/accounts/upload` + `/import-db` | 一份含 `accounts` 表的 `.db`（原项目 `meshy2api.db` 或本网关 `credentials.db`） |
+| 4 | **环境变量 / config** | `MESHY_REFRESH_TOKEN` 等 / `config.gateway` | 单账号凭据（不写库，仅作启动用，优先级最高） |
+
+> **批量自动注册**（`register.py`）**不在本网关版本里** —— 那是原项目/付费版的能力。
+> 本网关只能上面 4 种方式把已有账号导入。需要自动注册/无限续杯请见上方联系方式。
+
 ### 方式一：控制台「账号」页
 
-打开 `http://127.0.0.1:8090/console` → **账号** 页：
+打开 `http://127.0.0.1:8091/console` → **账号** 页：
 
 1. **浏览器登录**（推荐）：点「打开浏览器并等待登录」→ 网关拉起一个有头浏览器 →
    你在窗口里登录/注册 Meshy → 网关每 3 秒自动检测并捕获会话（`access_token` /
    `refresh_token` / `device_id` / `email`）→ 入库。**网关不接触你的密码**，只读取
-   登录成功后 Meshy 自己写下的 cookie 与 `localStorage`。
+   登录成功后 Meshy 自己写下的 cookie 与 `localStorage`。每次开始前会**先清 cookie**，
+   可连续登录不同账号。
 2. **手动导入**：粘贴 `email` + `refresh_token` + `device_id`（`access_token` 可选）。
 3. **从数据库文件导入**：上传一份 `.db`（原项目 `meshy2api.db` 或本网关
    `credentials.db`）→ 列出账号 → 勾选导入。
@@ -82,7 +97,7 @@ env  >  credentials.db 当前账号  >  config.json → gateway  >  data/session
 
 | Method | Path | Description |
 |---|---|---|
-| GET    | `/v1/gateway/accounts` | 列出账号（token 已脱敏） |
+| GET    | `/v1/gateway/accounts` | 列出账号（token 已脱敏，含 `dead` 标记） |
 | POST   | `/v1/gateway/accounts` | 手动导入 `{email, refresh_token, access_token?, device_id, activate?}` |
 | POST   | `/v1/gateway/accounts/upload` | 上传 `.db`（base64）→ 解析出账号列表（不入库） |
 | POST   | `/v1/gateway/accounts/import-db` | 从上传的 `.db` 导入选中的 `emails[]` |
@@ -95,16 +110,47 @@ env  >  credentials.db 当前账号  >  config.json → gateway  >  data/session
 | POST   | `/v1/gateway/login/browser/start` | 拉起浏览器并开始等待 `{port?, path?, startUrl?}` |
 | POST   | `/v1/gateway/login/browser/capture` | 立即尝试捕获 |
 | POST   | `/v1/gateway/login/browser/cancel` | 取消并关闭浏览器 |
+| GET    | `/v1/gateway/keepalive` | 保号状态（开关/间隔/下次运行/上次结果） |
+| POST   | `/v1/gateway/keepalive/run` | 立即跑一次保号 |
+| POST   | `/v1/gateway/keepalive/config` | 改保号配置 `{enabled?, intervalMinutes?, deadRetryMinutes?}` |
 
 - 环境变量覆盖：`MESHY_ACCESS_TOKEN` / `MESHY_REFRESH_TOKEN` / `MESHY_EMAIL` /
   `MESHY_DEVICE_ID` / `MESHY_PROXY`（env 优先级最高）。
 - 浏览器登录默认端口 `9222`，只监听 `127.0.0.1`；浏览器路径自动探测
   Chrome / Edge / Chromium（Windows / macOS / Linux），也可在控制台手动指定。
+- ⚠️ 多个网关实例同时用浏览器登录时，**错开 `browser.port`**（如 9222 / 9223）。
 
 > **快照提醒**：若从"另一个正在运行的桥持续轮换 token"的库快照导入，部分
 > `refresh_token` 会是 `Invalid Refresh Token: Already Used`。`access_token` 仍
 > 有效的号能正常导入；其余建议在停止那个桥之后再取快照。旧库里若某账号没有
 > `device_id`（老版本注册号），导入会被拒，需用浏览器登录重新捕获。
+
+## 自动保号 & 故障转移
+
+两个后台能力，让"号不容易掉"：
+
+**1. 自动保号（keep-alive，定时轮换 RT）**
+- 后台定时器每隔 `keepAlive.intervalMinutes`（默认 30，可配）遍历 `credentials.db`
+  **全部账号**，用 refresh_token 强制换新 token（串行、间隔 300ms），保持 token 新鲜、
+  RT 链路活跃。
+- 失败（`Already Used` / `Not Found` / 401）→ 标记死号，`deadRetryMinutes`（默认 60）
+  内跳过；结果写入 `/v1/gateway/keepalive` 的 `lastResult`。
+- 配置持久化在 `credentials.db` 的 `meta` 表；控制台/接口可随时开关调整。
+
+```jsonc
+"keepAlive": { "enabled": true, "intervalMinutes": 30, "deadRetryMinutes": 60 }
+```
+
+**2. 自动故障转移（auto pool failover）**
+- 当前生效账号的 token 失效时，网关**自动从 `credentials.db` 挑一个没死的号**
+  （排除死号、优先积分高），热切换到它并重试；日志 `[auto-pool] active account dead → switched A → B`。
+- 死号缓存 10 分钟；`/v1/stats` 的 `account.pool` 与账号列表的 `dead` 字段可见。
+
+> ⚠️ **保号 = 主动轮换 refresh_token。同一个号同一时刻只能有一个持有者！**
+> 若一个号同时在别处（朋友的实例 / 浏览器 / 另一个网关）被使用，两边都会轮换 RT →
+> **互相作废 → 双双 401**（`Already Used`）。保号只对"你独占、无他处使用"的号安全。
+> 反过来说，保号能显著减少「access_token 过期」「RT 长时间闲置失效」这两类 401，
+> 但对「被其他持有者轮换」无能为力。
 
 ### `deviceId` 必须与浏览器一致
 
