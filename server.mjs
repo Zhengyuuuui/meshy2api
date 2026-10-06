@@ -508,7 +508,22 @@ class GatewayClient {
     if (!this._refreshing) {
       this._refreshing = this.refresh().finally(() => { this._refreshing = null; });
     }
-    return this._refreshing;
+    try {
+      return await this._refreshing;
+    } catch (e) {
+      // current account's token is dead (401 / rotated elsewhere) → auto-replace
+      // with another non-dead account from credentials.db, then retry once.
+      if (isDeadTokenError(e) && this.refreshToken) {
+        const oldEmail = this.email;
+        markAccountDead(oldEmail);
+        const swapped = autoReplaceAccount(oldEmail);
+        if (swapped) {
+          log(`[auto-pool] active account dead → switched ${oldEmail || "?"} → ${swapped}`);
+          return await this.getToken();
+        }
+      }
+      throw e;
+    }
   }
 
   async headers() {
@@ -879,11 +894,12 @@ const runTurn = (args) => gw.runTurn(args);
 // ---------- account import (credentials.db) ----------
 
 /** Exchange a refresh_token for a fresh session, then probe credits/tier. Throws with a clear message. */
-async function verifyCredentials({ refreshToken, accessToken, deviceId }) {
+async function verifyCredentials({ refreshToken, accessToken, deviceId, forceRefresh = false }) {
   let session = null;
   const now = Math.floor(Date.now() / 1000);
-  // 1) try the existing access_token first (cheap; avoids burning a rotation)
-  if (accessToken && deviceId) {
+  // 1) try the existing access_token first (cheap; avoids burning a rotation).
+  //    forceRefresh=true skips this → always rotates the refresh_token (keep-alive).
+  if (!forceRefresh && accessToken && deviceId) {
     const probe = await probeAccount(accessToken, deviceId).catch(() => null);
     if (probe) session = { access_token: accessToken, expires_at: 0, _credits: probe };
   }
@@ -937,11 +953,11 @@ async function probeAccount(token, deviceId) {
 }
 
 /** Build a stored record from raw import input; verifies + enriches. */
-async function buildAccountRecord({ email, refreshToken, accessToken, deviceId, password }) {
+async function buildAccountRecord({ email, refreshToken, accessToken, deviceId, password, forceRefresh = false }) {
   if (!email) throw new Error("email is required");
   if (!deviceId) throw new Error("deviceId is required (must match the browser's meshy_device_id)");
   if (!refreshToken && !accessToken) throw new Error("refresh_token (or access_token) is required");
-  const { session, credits, tier } = await verifyCredentials({ refreshToken, accessToken, deviceId });
+  const { session, credits, tier } = await verifyCredentials({ refreshToken, accessToken, deviceId, forceRefresh });
   const resolvedEmail = session.user?.email || email;
   const prev = credStore.get(email) ?? {};
   return {
@@ -981,6 +997,101 @@ function publicAccount(rec) {
   };
 }
 
+// ---------- keep-alive: periodic refresh_token rotation (保号) ----------
+// A background timer that refreshes every account's refresh_token on an interval,
+// keeping the token chain fresh so the account doesn't silently die. This DOES
+// rotate the RT — an account MUST be owned by exactly one holder, otherwise this
+// will fight the other holder's rotation (Invalid Refresh Token: Already Used).
+const KEEPALIVE = {
+  enabled: config.keepAlive?.enabled !== false,
+  intervalMinutes: Math.max(1, Number(config.keepAlive?.intervalMinutes) || 30),
+  deadRetryMinutes: Math.max(1, Number(config.keepAlive?.deadRetryMinutes) || 60),
+};
+const keepAliveState = {
+  running: false,
+  lastRunAt: 0,
+  nextRunAt: 0,
+  lastResult: null, // { total, ok, dead, errors: [{email,error}], durationMs }
+  timer: null,
+};
+
+function saveKeepAliveCfg() {
+  try {
+    credDb.prepare("INSERT INTO meta (key, value) VALUES ('keepalive_cfg', ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value")
+      .run(JSON.stringify({ enabled: KEEPALIVE.enabled, intervalMinutes: KEEPALIVE.intervalMinutes }));
+  } catch (e) { credWarn("saveKeepAliveCfg", e); }
+}
+(function loadKeepAliveCfg() {
+  try {
+    const row = credDb.prepare("SELECT value FROM meta WHERE key='keepalive_cfg'").get();
+    if (row) { const c = JSON.parse(row.value); if (c && typeof c === "object") { if (c.enabled != null) KEEPALIVE.enabled = !!c.enabled; if (c.intervalMinutes) KEEPALIVE.intervalMinutes = Math.max(1, Number(c.intervalMinutes)); } }
+  } catch {}
+})();
+
+/** Refresh one stored account's token (rotating the RT), persist result. Returns {ok, dead, error, credits}. */
+async function refreshOneAccount(rec) {
+  try {
+    const fresh = await buildAccountRecord({
+      email: rec.email, refreshToken: rec.refresh_token, accessToken: rec.access_token,
+      deviceId: rec.device_id, password: rec.password, forceRefresh: true,
+    });
+    credStore.upsert(fresh);
+    if (fresh.email === gw.email) gw.loadFrom(fresh);  // keep the live client in sync
+    deadAccounts.delete(fresh.email);
+    return { ok: true, credits: fresh.free_credits };
+  } catch (e) {
+    const dead = isDeadTokenError(e);
+    if (dead) markAccountDead(rec.email);
+    return { ok: false, dead, error: String(e.message).slice(0, 160) };
+  }
+}
+
+/** Run one keep-alive pass over every account (serially, to avoid hammering). */
+async function runKeepAlive() {
+  if (keepAliveState.running) return keepAliveState.lastResult;
+  keepAliveState.running = true;
+  const t0 = Date.now();
+  const results = { total: 0, ok: 0, dead: 0, errors: [] };
+  try {
+    const accounts = credStore.all().filter((r) => r.email && r.refresh_token && r.device_id);
+    results.total = accounts.length;
+    for (const rec of accounts) {
+      // skip recently-dead accounts until the dead-retry window passes
+      if (accountIsDead(rec.email) && (Date.now() - (deadAccounts.get(rec.email) || 0)) < KEEPALIVE.deadRetryMinutes * 60_000) {
+        results.dead++; continue;
+      }
+      const r = await refreshOneAccount(rec);
+      if (r.ok) results.ok++;
+      else { if (r.dead) results.dead++; results.errors.push({ email: rec.email, error: r.error }); }
+      await sleep(300); // gentle pacing between accounts
+    }
+  } catch (e) {
+    log(`keep-alive pass error: ${String(e.message).slice(0, 160)}`);
+  } finally {
+    keepAliveState.running = false;
+    keepAliveState.lastRunAt = Date.now();
+    results.durationMs = Date.now() - t0;
+    results.finishedAt = new Date().toISOString();
+    keepAliveState.lastResult = results;
+    log(`keep-alive: ${results.ok}/${results.total} refreshed, ${results.dead} dead, ${results.errors.length} errors (${results.durationMs}ms)`);
+  }
+  return results;
+}
+
+function scheduleKeepAlive() {
+  if (keepAliveState.timer) { clearTimeout(keepAliveState.timer); keepAliveState.timer = null; }
+  if (!KEEPALIVE.enabled) { keepAliveState.nextRunAt = 0; return; }
+  const ms = KEEPALIVE.intervalMinutes * 60_000;
+  keepAliveState.nextRunAt = Date.now() + ms;
+  keepAliveState.timer = setTimeout(async () => {
+    await runKeepAlive().catch(() => {});
+    scheduleKeepAlive();
+  }, ms);
+  // don't hold the event loop open just for the timer
+  if (keepAliveState.timer.unref) keepAliveState.timer.unref();
+}
+
+
 function activateAccount(email) {
   const rec = credStore.get(email);
   if (!rec) throw new Error(`unknown account ${email}`);
@@ -989,6 +1100,41 @@ function activateAccount(email) {
   gw.persist();
   log(`gateway switched to ${email} device=${(rec.device_id || "").slice(0, 8)}`);
   return rec;
+}
+
+// ---------- auto pool replacement (single-account gateway, auto-failover) ----------
+// The gateway is single-account, but credentials.db may hold several. When the
+// active account's token is dead (401 / rotated by another holder), we skip it and
+// hot-swap to the next usable one — same idea as the multi-account pool fallback.
+
+function isDeadTokenError(e) {
+  const s = String(e?.message ?? e);
+  return /Already Used|Not Found|not valid|is invalid|Invalid Refresh Token|refresh_token_not_found|invalid_grant|invalid token|401|unauthorized/i.test(s);
+}
+
+const deadAccounts = new Map(); // email → ts
+const DEAD_ACCOUNT_TTL = 10 * 60 * 1000;
+function markAccountDead(email) {
+  if (email) deadAccounts.set(email, Date.now());
+}
+function accountIsDead(email) {
+  const ts = deadAccounts.get(email);
+  if (!ts) return false;
+  if (Date.now() - ts > DEAD_ACCOUNT_TTL) { deadAccounts.delete(email); return false; }
+  return true;
+}
+
+/** Pick another non-dead account from credentials.db (prefers cached credits), hot-swap into `gw`. */
+function autoReplaceAccount(excludeEmail) {
+  const candidates = credStore.all()
+    .filter((r) => r.email && r.refresh_token && r.device_id && r.email !== excludeEmail && !accountIsDead(r.email))
+    .sort((a, b) => (b.free_credits ?? 999) - (a.free_credits ?? 999));
+  if (!candidates.length) return null;
+  const rec = candidates[0];
+  gw.loadFrom(rec);
+  credStore.setActiveEmail(rec.email);
+  gw.persist();
+  return rec.email;
 }
 
 // ---------- browser login (CDP: headful browser → read meshy session) ----------
@@ -1135,7 +1281,28 @@ async function captureBrowserSession() {
   const session = decodeSupabaseChunks(data.chunks);
   if (!session.access_token || !session.refresh_token) throw new Error("captured session is incomplete");
   if (!data.deviceId) throw new Error("captured session has no meshy_device_id (localStorage empty?)");
-  return { session, deviceId: data.deviceId, email: session.user?.email || "", href: data.href };
+  // fingerprint lets us tell a *fresh* login from a stale cookie left in the profile
+  const fingerprint = crypto.createHash("sha1").update(String(session.refresh_token)).digest("hex").slice(0, 16);
+  return { session, deviceId: data.deviceId, email: session.user?.email || "", href: data.href, fingerprint };
+}
+
+/** Quick read of the current meshy session fingerprint on any open meshy tab (null if none). */
+async function currentMeshyFingerprint() {
+  try { return (await captureBrowserSession()).fingerprint; } catch { return null; }
+}
+
+/** Clear the browser's cookies so a previous account can't be re-captured. This profile is
+ *  only used for login capture, so clearing all cookies is safe. */
+async function clearBrowserCookies() {
+  const targets = await cdpList();
+  const page = targets.find((t) => t.type === "page");
+  if (!page) throw new Error("no page target to clear cookies");
+  const s = cdpSession(page.webSocketDebuggerUrl);
+  await s.ready;
+  try {
+    await s.send("Network.enable").catch(() => {});
+    await s.send("Network.clearBrowserCookies");
+  } finally { s.close(); }
 }
 
 function decodeSupabaseChunks(chunks) {
@@ -1159,6 +1326,7 @@ const loginFlow = {
   error: null,
   launchedByUs: false,
   connected: false,
+  baselineFingerprint: null,
 };
 let loginPollBusy = false;
 
@@ -1231,11 +1399,15 @@ async function startBrowserLogin(res, body) {
   loginFlow.lastCapture = null;
   loginFlow.startedAt = Date.now();
   loginFlow.connected = false;
+  loginFlow.baselineFingerprint = null;
   try {
     const info = await ensureBrowserRunning();
     loginFlow.connected = true;
+    // clear cookies left by a previous login so a stale session can't be re-captured
+    try { await clearBrowserCookies(); } catch (e) { log(`clear cookies skipped: ${String(e.message).slice(0, 100)}`); }
+    loginFlow.baselineFingerprint = await currentMeshyFingerprint();
     loginFlow.status = "waiting";
-    loginFlow.message = "browser open — log in to meshy.ai there; the gateway will capture the session automatically";
+    loginFlow.message = "browser open — log in a NEW account on meshy.ai; it will be captured automatically";
     stopLoginPoll();
     loginFlow.pollTimer = setInterval(() => { tryCaptureBrowserSession(true); }, 3000);
     jsonOk(res, { started: true, ...loginPublicState() });
@@ -1252,7 +1424,11 @@ async function tryCaptureBrowserSession(auto = false) {
   if (loginFlow.status !== "waiting") return null;
   loginPollBusy = true;
   try {
-    const { session, deviceId, email } = await captureBrowserSession();
+    const { session, deviceId, email, fingerprint } = await captureBrowserSession();
+    // only a session that DIFFERS from the baseline counts as a fresh login
+    if (fingerprint === loginFlow.baselineFingerprint) {
+      throw new Error("still showing the previous session — clear cookies or log in as a different account");
+    }
     stopLoginPoll();
     // verify + enrich, then store (do NOT auto-switch)
     let rec;
@@ -2323,6 +2499,7 @@ async function handleStats(res) {
       tokenExpiresAt: gw.expiresAt || null, decrypt3d: DECRYPT_3D, dataDir: DATA_DIR,
       turnQueueWaiting: turnChainSummary.depth,
       pending3d: task3dQueue.depth,
+      keepAlive: { enabled: KEEPALIVE.enabled, intervalMinutes: KEEPALIVE.intervalMinutes, nextRunAt: KEEPALIVE.enabled ? keepAliveState.nextRunAt || null : null, lastRunAt: keepAliveState.lastRunAt || null },
     },
     jobs: { total: jobs.length, succeeded: succeeded.length, failed: failed.length, running: running.length, creditsSpent },
     upstream, upstreamTotal: total,
@@ -2337,6 +2514,11 @@ async function handleStats(res) {
       monthlyBucket: upstream?.freeCreditBalance ?? 0,
       permanentBucket: (upstream?.creditBalance ?? 0) + (upstream?.shareCreditEarned ?? 0),
       expiresAt: gw.expiresAt || null,
+      pool: {
+        total: credStore.all().length,
+        dead: [...deadAccounts.keys()],
+        activeIsDead: accountIsDead(gw.email),
+      },
     },
   });
 }
@@ -2344,7 +2526,7 @@ async function handleStats(res) {
 // ---------- account management handlers ----------
 
 function handleAccountsList(res) {
-  const accounts = credStore.all().map(publicAccount);
+  const accounts = credStore.all().map((r) => ({ ...publicAccount(r), dead: accountIsDead(r.email) }));
   jsonOk(res, { object: "list", total: accounts.length, active: gw.email || null, data: accounts });
 }
 
@@ -2545,6 +2727,34 @@ function handleActiveAccount(res) {
   });
 }
 
+// ---------- keep-alive handlers ----------
+function keepAlivePublicState() {
+  return {
+    enabled: KEEPALIVE.enabled,
+    intervalMinutes: KEEPALIVE.intervalMinutes,
+    deadRetryMinutes: KEEPALIVE.deadRetryMinutes,
+    running: keepAliveState.running,
+    lastRunAt: keepAliveState.lastRunAt || null,
+    nextRunAt: KEEPALIVE.enabled ? keepAliveState.nextRunAt || null : null,
+    nextRunInSeconds: KEEPALIVE.enabled && keepAliveState.nextRunAt ? Math.max(0, Math.round((keepAliveState.nextRunAt - Date.now()) / 1000)) : null,
+    lastResult: keepAliveState.lastResult,
+    accounts: credStore.all().length,
+  };
+}
+function handleKeepAliveStatus(res) { jsonOk(res, keepAlivePublicState()); }
+async function handleKeepAliveRun(req, res) {
+  const r = await runKeepAlive();
+  jsonOk(res, { ...keepAlivePublicState(), thisRun: r });
+}
+function handleKeepAliveConfig(req, res, body) {
+  if (typeof body.enabled === "boolean") KEEPALIVE.enabled = body.enabled;
+  if (body.intervalMinutes != null) KEEPALIVE.intervalMinutes = Math.max(1, Number(body.intervalMinutes) || KEEPALIVE.intervalMinutes);
+  if (body.deadRetryMinutes != null) KEEPALIVE.deadRetryMinutes = Math.max(1, Number(body.deadRetryMinutes) || KEEPALIVE.deadRetryMinutes);
+  saveKeepAliveCfg();
+  scheduleKeepAlive();
+  jsonOk(res, keepAlivePublicState());
+}
+
 // ---------- http server ----------
 
 async function readBody(req, limit = 25 * 1024 * 1024) {
@@ -2603,6 +2813,12 @@ const server = http.createServer(async (req, res) => {
         return await handleAccountRefresh(req, res, body);
       }
       if (req.method === "GET" && p === "/v1/gateway/active") return handleActiveAccount(res);
+      if (req.method === "GET" && p === "/v1/gateway/keepalive") return handleKeepAliveStatus(res);
+      if (req.method === "POST" && p === "/v1/gateway/keepalive/run") return await handleKeepAliveRun(req, res);
+      if (req.method === "POST" && p === "/v1/gateway/keepalive/config") {
+        const body = await readJsonBody(req, res);
+        return handleKeepAliveConfig(req, res, body);
+      }
       if (req.method === "GET" && p === "/v1/gateway/login/browser/config") return handleBrowserConfig(res);
       if (req.method === "GET" && p === "/v1/gateway/login/browser/status") return handleBrowserStatus(res);
       if (req.method === "POST" && p === "/v1/gateway/login/browser/start") {
@@ -2727,4 +2943,11 @@ server.listen(PORT, HOST, () => {
   gw.refreshCredits()
     .then((c) => log(`credits=${c ?? "?"} (monthly=${gw.creditsBreakdown?.freeCreditBalance ?? "?"} permanent=${(gw.creditsBreakdown?.creditBalance ?? 0) + (gw.creditsBreakdown?.shareCreditEarned ?? 0)})`))
     .catch((e) => log(`startup credit probe failed: ${String(e.message).slice(0, 120)}`));
+  // keep-alive: periodically rotate every account's refresh_token (保号)
+  if (KEEPALIVE.enabled && storeN > 0) {
+    scheduleKeepAlive();
+    log(`keep-alive: enabled, every ${KEEPALIVE.intervalMinutes} min over ${storeN} accounts`);
+  } else {
+    log(`keep-alive: ${KEEPALIVE.enabled ? "no accounts to keep alive" : "disabled"}`);
+  }
 });
