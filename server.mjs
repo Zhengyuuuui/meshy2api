@@ -515,7 +515,7 @@ class GatewayClient {
       // with another non-dead account from credentials.db, then retry once.
       if (isDeadTokenError(e) && this.refreshToken) {
         const oldEmail = this.email;
-        markAccountDead(oldEmail);
+        markAccountDead(oldEmail, e?.message);
         const swapped = autoReplaceAccount(oldEmail);
         if (swapped) {
           log(`[auto-pool] active account dead → switched ${oldEmail || "?"} → ${swapped}`);
@@ -981,6 +981,13 @@ async function buildAccountRecord({ email, refreshToken, accessToken, deviceId, 
 
 /** Redact secrets for list responses. */
 function publicAccount(rec) {
+  const dead = accountIsDead(rec.email);
+  const hasRt = !!rec.refresh_token;
+  const hasDev = !!rec.device_id;
+  let health, healthText;
+  if (!hasRt || !hasDev) { health = "broken"; healthText = !hasRt ? "缺 refresh_token" : "缺 device_id"; }
+  else if (dead) { health = "dead"; healthText = lastAccountError.get(rec.email) || "token 失效(401)，已跳过"; }
+  else health = "ok", healthText = "正常";
   return {
     email: rec.email,
     device_id: rec.device_id ?? null,
@@ -992,8 +999,11 @@ function publicAccount(rec) {
     status: rec.status ?? "active",
     created_at: rec.created_at ?? null,
     imported_at: rec.imported_at ?? null,
-    has_refresh_token: !!rec.refresh_token,
+    has_refresh_token: hasRt,
     active: rec.email === gw.email,
+    dead,
+    health,
+    health_text: healthText,
   };
 }
 
@@ -1038,10 +1048,12 @@ async function refreshOneAccount(rec) {
     credStore.upsert(fresh);
     if (fresh.email === gw.email) gw.loadFrom(fresh);  // keep the live client in sync
     deadAccounts.delete(fresh.email);
+    lastAccountError.delete(fresh.email);
     return { ok: true, credits: fresh.free_credits };
   } catch (e) {
     const dead = isDeadTokenError(e);
-    if (dead) markAccountDead(rec.email);
+    if (dead) markAccountDead(rec.email, e?.message);
+    else lastAccountError.set(rec.email, String(e?.message).slice(0, 120));
     return { ok: false, dead, error: String(e.message).slice(0, 160) };
   }
 }
@@ -1113,9 +1125,11 @@ function isDeadTokenError(e) {
 }
 
 const deadAccounts = new Map(); // email → ts
+const lastAccountError = new Map(); // email → last error message (for status display)
 const DEAD_ACCOUNT_TTL = 10 * 60 * 1000;
-function markAccountDead(email) {
+function markAccountDead(email, err) {
   if (email) deadAccounts.set(email, Date.now());
+  if (email && err) lastAccountError.set(email, String(err).slice(0, 120));
 }
 function accountIsDead(email) {
   const ts = deadAccounts.get(email);

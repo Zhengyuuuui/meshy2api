@@ -349,6 +349,13 @@ a.link:hover { text-decoration:underline; }
   </div>
 
   <div class="section">
+    <div class="section-title" style="justify-content:space-between">保号状态 <button class="btn btn-outline btn-sm" onclick="runKeepAlive()">立即保号一次</button></div>
+    <div class="card"><div class="kv" id="kaKv"></div>
+      <div class="note" id="kaNote"></div>
+    </div>
+  </div>
+
+  <div class="section">
     <div class="section-title" style="justify-content:space-between">浏览器登录 <span class="note">网关拉起一个有头浏览器，你在里面登录 meshy，网关照旧读取会话（不碰你的密码）</span></div>
     <div class="card">
       <div class="reg-row" style="margin-bottom:10px">
@@ -408,8 +415,8 @@ a.link:hover { text-decoration:underline; }
     <div class="section-title" style="justify-content:space-between">凭据库 <button class="btn btn-outline btn-sm" onclick="loadAccounts()">刷新</button></div>
     <div class="card" style="padding:0;overflow-x:auto">
       <table>
-        <thead><tr><th>邮箱</th><th style="width:80px">积分</th><th style="width:90px">月度/永久</th><th style="width:110px">device</th><th style="width:130px">Token 到期</th><th style="width:170px">操作</th></tr></thead>
-        <tbody id="accBody"><tr><td colspan="6" class="empty">加载中...</td></tr></tbody>
+        <thead><tr><th>邮箱</th><th style="width:90px">状态</th><th style="width:80px">积分</th><th style="width:90px">月度/永久</th><th style="width:110px">device</th><th style="width:130px">Token 到期</th><th style="width:170px">操作</th></tr></thead>
+        <tbody id="accBody"><tr><td colspan="7" class="empty">加载中...</td></tr></tbody>
       </table>
     </div>
     <div class="note">当前使用的账号不能删除；切换会热更新网关（无需重启）。</div>
@@ -492,7 +499,7 @@ document.querySelectorAll("nav a").forEach((a) => {
     $("page-" + a.dataset.page).classList.add("active");
     if (a.dataset.page === "model3d") loadJobs();
     if (a.dataset.page === "pipeline") loadPipeline();
-    if (a.dataset.page === "accounts") { loadAccounts(); loadBrowserCfg(); }
+    if (a.dataset.page === "accounts") { loadAccounts(); loadBrowserCfg(); loadKeepAlive(); }
     if (a.dataset.page === "overview") refreshAll();
   };
 });
@@ -1149,6 +1156,34 @@ async function browserLoginCancel() {
     toast("已关闭浏览器");
   } catch (e) { toast(e.message, false); }
 }
+async function loadKeepAlive() {
+  try {
+    const k = await api("/v1/gateway/keepalive");
+    const lr = k.lastResult;
+    const nextIn = k.nextRunInSeconds != null ? fmtCountdown(k.nextRunInSeconds) : "-";
+    $("kaKv").innerHTML = [
+      ["状态", k.enabled ? '<span class="tag tag-succeeded">开启</span>' : '<span class="tag tag-failed">关闭</span>'],
+      ["间隔", k.intervalMinutes + " 分钟"],
+      ["下次运行", k.enabled ? esc(nextIn) : "-"],
+      ["上次运行", k.lastRunAt ? new Date(k.lastRunAt).toLocaleString() : "尚未运行"],
+      ["上次结果", lr ? `成功 ${lr.ok}/${lr.total} · 死号 ${lr.dead} · 错误 ${(lr.errors||[]).length} (${lr.durationMs}ms)` : "-"],
+      ["死号重试", k.deadRetryMinutes + " 分钟"],
+    ].map(([k2, v]) => `<div class="k">${k2}</div><div>${v}</div>`).join("");
+    const errs = lr?.errors ?? [];
+    $("kaNote").innerHTML = errs.length
+      ? `<span style="color:var(--yellow)">保号失败的号：</span>` + errs.map((e) => `<span class="mono">${esc(e.email)}</span>(${esc(e.error)})`).join("、")
+      : "保号会用 refresh_token 定时换新 token。注意：同一个号不能同时在别处使用，否则会互相轮换导致失效。";
+  } catch (e) { logEv("err", "keepalive: " + e.message); }
+}
+async function runKeepAlive() {
+  try {
+    const d = await api("/v1/gateway/keepalive/run", { timeoutMs: 300_000, method: "POST" });
+    const r = d.thisRun || {};
+    toast(`保号完成: ${r.ok}/${r.total} 成功, ${r.dead} 死号`);
+    logEv("info", `keep-alive: ${r.ok}/${r.total} ok, ${r.dead} dead`);
+    loadKeepAlive(); loadAccounts();
+  } catch (e) { toast(e.message, false); }
+}
 async function loadAccounts() {
   try {
     const d = await api("/v1/gateway/accounts");
@@ -1166,8 +1201,13 @@ async function loadAccounts() {
       const pb = (a.credits_breakdown?.creditBalance ?? 0) + (a.credits_breakdown?.shareCreditEarned ?? 0);
       const exp = a.expires_at ? new Date(a.expires_at * 1000).toLocaleString() : "-";
       const tag = a.active ? ' <span class="tag tag-succeeded">当前</span>' : "";
+      const h = a.health || "ok";
+      const hClass = h === "ok" ? "tag-succeeded" : h === "dead" ? "tag-failed" : "tag-running";
+      const hLabel = h === "ok" ? "正常" : h === "dead" ? "失效" : "缺凭据";
+      const status = `<span class="tag ${hClass}" title="${esc(a.health_text || "")}">${hLabel}</span>`;
       return `<tr>
         <td class="mono" style="cursor:pointer" onclick="copyText('${esc(a.email)}','邮箱')" title="点击复制">${esc(a.email)}${tag}</td>
+        <td>${status}</td>
         <td><b style="color:var(--green)">${a.free_credits ?? "-"}</b></td>
         <td><span style="color:var(--yellow)" title="月度">月${mb}</span> · <span style="color:var(--green)" title="永久">永${pb}</span></td>
         <td class="mono">${shortDev(a.device_id)}</td>
@@ -1178,7 +1218,7 @@ async function loadAccounts() {
           ${a.active ? "" : `<button class="btn btn-danger btn-sm" onclick="deleteAccount('${esc(a.email)}')">删除</button>`}
         </td>
       </tr>`;
-    }).join("") : `<tr><td colspan="6" class="empty">凭据库为空 — 手动导入或上传 .db</td></tr>`;
+    }).join("") : `<tr><td colspan="7" class="empty">凭据库为空 — 手动导入或上传 .db</td></tr>`;
   } catch (e) { logEv("err", "accounts: " + e.message); }
 }
 async function importAccount() {
