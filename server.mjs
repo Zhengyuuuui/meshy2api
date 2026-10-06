@@ -749,10 +749,7 @@ class GatewayClient {
         draft: {
           aiModel, license, shouldTransferImageStyle: true, ultraMode: false, modelType,
           autoSplit: false,
-          // texture switch for the single-draft chained task lives here (args.draft.autoTexture);
-          // args.generate.isUseTexture is the two-step flow and is ignored for draft.
-          autoTexture: !!shouldTexture,
-          ...(shouldTexture ? { autoTextureAIModel: "blueberry" } : {}),
+          autoTexture: false,
           multiView: !!multiView, poseMode: "",
           imageIds: [`${String(imageId).replace(/\.[a-z0-9]{2,5}$/i, "")}.${ext}`],
           prompt,
