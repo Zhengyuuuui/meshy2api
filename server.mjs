@@ -1921,6 +1921,23 @@ async function handleChatCompletions(req, res, body) {
   });
 }
 
+/**
+ * 下载图片并转 Base64（走代理）。用于 OpenAI 兼容的 b64_json 字段。
+ * 失败返回 null（不阻塞主响应）。
+ */
+async function urlToBase64(url, { timeoutMs = 60_000 } = {}) {
+  try {
+    const res = await gwFetch(url, { noAuth: true, redirect: "follow", retries: 2, timeoutMs });
+    if (!res.ok) { log(`b64 download ${res.status} ${String(url).slice(0, 80)}`); return null; }
+    const buf = Buffer.from(await res.arrayBuffer());
+    if (!buf.length) return null;
+    return buf.toString("base64");
+  } catch (e) {
+    log(`b64 convert failed: ${String(e.message ?? e).slice(0, 120)}`);
+    return null;
+  }
+}
+
 function validAspect(v) {
   const ok = new Set(["1:1", "16:9", "9:16", "4:3", "3:4", "3:2", "2:3"]);
   return typeof v === "string" && ok.has(v) ? v : null;
@@ -2006,9 +2023,19 @@ async function handleImageGeneration(req, res, body) {
   }
   const usage = finish?.usage ?? null;
   log(`image done credits=${usage?.credits ?? "?"} quality=${quality}`);
+  // OpenAI 兼容: 默认同时给 url + b64_json(Cherry Studio 等对 b64_json 做 Zod 强校验)
+  const wantB64 = body.response_format !== "url";
+  const data = await Promise.all(chosen.map(async (a) => {
+    const item = { url: a.url, revised_prompt: a.prompt ?? prompt };
+    if (wantB64 && a.url) {
+      const b64 = await urlToBase64(a.url);
+      if (b64) item.b64_json = b64;
+    }
+    return item;
+  }));
   jsonOk(res, {
     created: Math.floor(Date.now() / 1000),
-    data: chosen.map((a) => ({ url: a.url, revised_prompt: a.prompt ?? prompt })),
+    data,
     usage, quality,
     meshy: { artifacts: chosen.map((a) => ({ artifact_id: a.artifactId, meshy_task_id: a.meshyTaskId, aspect_ratio: a.aspectRatio, ai_model: a.aiModel })), quality },
   });
