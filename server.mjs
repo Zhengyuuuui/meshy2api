@@ -107,11 +107,17 @@ function upstreamConnect({ host, port }, targetHost, targetPort, timeoutMs = 15_
  *   2. `text/event-stream` responses returned as a real ReadableStream (agent turn)
  *   3. `ok` + `arrayBuffer()` present (GLB decryption / !res.ok checks)
  */
-async function upstreamFetch(url, { method = "GET", headers = {}, body, timeoutMs = 30_000, redirect } = {}) {
+async function upstreamFetch(url, { method = "GET", headers = {}, body, timeoutMs = 30_000, redirect, signal } = {}) {
   const noProxy = !PROXY_URL || new URL(url).protocol !== "https:";
   if (noProxy) {
     const ac = new AbortController();
-    const t = setTimeout(() => ac.abort(), timeoutMs);
+    const t = setTimeout(() => ac.abort(new Error(`upstream idle timeout ${timeoutMs}ms`)), timeoutMs);
+    // external signal (agent turn budget) must also abort the request
+    const onOuterAbort = () => { try { ac.abort(signal.reason); } catch { ac.abort(); } };
+    if (signal) {
+      if (signal.aborted) onOuterAbort();
+      else signal.addEventListener("abort", onOuterAbort, { once: true });
+    }
     try {
       const r = await fetch(url, { method, headers, body, redirect, signal: ac.signal });
       const ct = r.headers.get("content-type") ?? "";
@@ -147,7 +153,10 @@ async function upstreamFetch(url, { method = "GET", headers = {}, body, timeoutM
         arrayBuffer: async () => buf,
         json: async () => { try { return JSON.parse(text); } catch { return null; } },
       };
-    } finally { clearTimeout(t); }
+    } finally {
+      clearTimeout(t);
+      if (signal) { try { signal.removeEventListener("abort", onOuterAbort); } catch {} }
+    }
   }
 
   // proxy path: follow redirects manually (signed CDN links 302), max 5 hops
