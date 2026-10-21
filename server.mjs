@@ -1812,8 +1812,8 @@ function sendJson(res, status, obj) {
   res.writeHead(status, { "Content-Type": "application/json", "Content-Length": Buffer.byteLength(body) });
   res.end(body);
 }
-function apiError(res, status, message, type = "invalid_request_error", code = null) {
-  sendJson(res, status, { error: { message, type, code } });
+function apiError(res, status, message, type = "invalid_request_error", code = null, param = null) {
+  sendJson(res, status, { error: { message, type, param, code } });
 }
 function checkAuth(req, res) {
   if (!BRIDGE_API_KEY) return true;
@@ -1943,6 +1943,19 @@ function validAspect(v) {
   return typeof v === "string" && ok.has(v) ? v : null;
 }
 
+/**
+ * OpenAI `quality` 归一化。
+ * 官方枚举: low | medium | high | xhigh | max | auto; dall-e-3 另支持 standard | hd。
+ * 上游(Meshy)生图无独立画质档位, 该字段仅「接收 + 回显」, 不影响上游请求。
+ */
+function normalizeQuality(q) {
+  const s = String(q ?? "").trim().toLowerCase();
+  if (!s) return "auto";
+  if (["low", "medium", "high", "xhigh", "max", "auto", "standard", "hd"].includes(s)) return s;
+  const alias = { ultra: "max", "2k": "high", "4k": "high", "1k": "medium", basic: "low" };
+  return alias[s] ?? "auto";
+}
+
 /** OpenAI `size` ("1024x1024") → 比例 ("1:1")，用于 OpenAI Images API 兼容。 */
 function sizeToAspect(size) {
   if (typeof size !== "string" || !/^\d+\s*[x×]\s*\d+$/i.test(size.trim())) return null;
@@ -1964,10 +1977,20 @@ const IMAGE_STYLE_LABELS = {
   "japanese-anime": "Japanese Anime", "western-realism": "Western Realism",
   "chibi-blind-box": "Chibi Blind Box", "vinyl-figure": "Vinyl Figure", "brick-figure": "Brick Figure",
 };
+// OpenAI style (vivid|natural) → 出图指令; 自研画风用 style_preset 避免字段冲突
+const IMAGE_STYLE_OPENAI = {
+  vivid: 'with a hyper-realistic and dramatic style, emphasizing rich, saturated colors and high contrast (Meshy "likeness": "hyper")',
+  natural: 'with a natural, true-to-life style, softer lighting and realistic proportions (Meshy "likeness": "realistic")',
+};
 function imageOptionText(body) {
   const parts = [];
-  const style = IMAGE_STYLE_LABELS[body.style] ?? (typeof body.style === "string" && body.style.trim() && !IMAGE_STYLE_LABELS[body.style] ? body.style.trim() : null);
-  if (style) parts.push(`with style "${style}"`);
+  if (body.style && IMAGE_STYLE_OPENAI[body.style]) parts.push(IMAGE_STYLE_OPENAI[body.style]);
+  const rawPreset = body.style_preset ?? body.style_preset_name ?? null;
+  if (rawPreset) {
+    const preset = IMAGE_STYLE_LABELS[rawPreset] ? `${IMAGE_STYLE_LABELS[rawPreset]} style`
+      : (typeof rawPreset === "string" && rawPreset.trim() ? `${rawPreset.trim()} style` : null);
+    if (preset) parts.push(preset);
+  }
   if (body.pose === "a") parts.push("in A-pose");
   else if (body.pose === "t") parts.push("in T-pose");
   if (body.multi_view) parts.push("as a multi-view (turnaround) sheet");
@@ -1984,13 +2007,13 @@ function mapUpstreamStatus(err) {
 // POST /v1/image/generation
 async function handleImageGeneration(req, res, body) {
   const model = body.model ?? DEFAULTS.imageModel;
-  if (!IMAGE_MODELS.has(model)) return apiError(res, 400, `unknown image model ${model}; supported: ${[...IMAGE_MODELS].join(", ")}`);
+  if (!IMAGE_MODELS.has(model)) return apiError(res, 400, `unknown image model ${model}; supported: ${[...IMAGE_MODELS].join(", ")}`, "invalid_request_error", "unknown_model", "model");
   const prompt = String(body.prompt ?? "").trim();
-  if (!prompt) return apiError(res, 400, "prompt is required");
+  if (!prompt) return apiError(res, 400, "prompt is required", "invalid_request_error", "prompt_required", "prompt");
   const aspectRatio = validAspect(body.aspect_ratio) ?? sizeToAspect(body.size) ?? DEFAULTS.aspectRatio;
   const n = Math.max(1, Math.min(8, Number(body.n ?? 1) || 1));
-  const qualityAllowed = /nano-banana/.test(model) ? ["standard", "hd"] : ["standard", "hd", "ultra"];
-  const quality = qualityAllowed.includes(body.quality) ? body.quality : "standard";
+  // OpenAI quality 枚举归一化(low/medium/high/xhigh/max/auto); 上游无独立画质档位, 仅回显
+  const quality = normalizeQuality(body.quality);
   const wantImg2Img = Array.isArray(body.image) && body.image.length > 0;
 
   const projectId = await ensureProject();
