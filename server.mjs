@@ -606,6 +606,10 @@ class GatewayClient {
       if (!res.ok) {
         return { events: [], finish: null, error: { code: `http_${res.status}`, text: (await res.text()).slice(0, 300) }, httpStatus: res.status };
       }
+      if (!res.body || typeof res.body.getReader !== "function") {
+        const t = await res.text().catch(() => "");
+        return { events: [], finish: null, error: { code: "no_stream", text: `status=${res.status} ct=${res.headers?.get?.("content-type") || "?"} len=${t.length}` }, httpStatus: res.status };
+      }
       const reader = res.body.getReader();
       const dec = new TextDecoder();
       let buf = "";
