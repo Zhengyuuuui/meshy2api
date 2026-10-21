@@ -1913,6 +1913,23 @@ function validAspect(v) {
   return typeof v === "string" && ok.has(v) ? v : null;
 }
 
+/** OpenAI `size` ("1024x1024") → 比例 ("1:1")，用于 OpenAI Images API 兼容。 */
+function sizeToAspect(size) {
+  if (typeof size !== "string" || !/^\d+\s*[x×]\s*\d+$/i.test(size.trim())) return null;
+  const [w, h] = size.trim().split(/[x×]/i).map(Number);
+  if (!w || !h) return null;
+  if (w === h) return "1:1";
+  const ratio = w / h;
+  const table = [
+    [16 / 9, "16:9"], [9 / 16, "9:16"],
+    [4 / 3, "4:3"], [3 / 4, "3:4"],
+    [3 / 2, "3:2"], [2 / 3, "2:3"],
+  ];
+  let best = null, bestDiff = Infinity;
+  for (const [r, a] of table) { const d = Math.abs(ratio - r); if (d < bestDiff) { bestDiff = d; best = a; } }
+  return bestDiff < 0.08 ? best : null;
+}
+
 const IMAGE_STYLE_LABELS = {
   "japanese-anime": "Japanese Anime", "western-realism": "Western Realism",
   "chibi-blind-box": "Chibi Blind Box", "vinyl-figure": "Vinyl Figure", "brick-figure": "Brick Figure",
@@ -1940,7 +1957,7 @@ async function handleImageGeneration(req, res, body) {
   if (!IMAGE_MODELS.has(model)) return apiError(res, 400, `unknown image model ${model}; supported: ${[...IMAGE_MODELS].join(", ")}`);
   const prompt = String(body.prompt ?? "").trim();
   if (!prompt) return apiError(res, 400, "prompt is required");
-  const aspectRatio = validAspect(body.aspect_ratio ?? body.size ?? DEFAULTS.aspectRatio);
+  const aspectRatio = validAspect(body.aspect_ratio) ?? sizeToAspect(body.size) ?? DEFAULTS.aspectRatio;
   const n = Math.max(1, Math.min(8, Number(body.n ?? 1) || 1));
   const qualityAllowed = /nano-banana/.test(model) ? ["standard", "hd"] : ["standard", "hd", "ultra"];
   const quality = qualityAllowed.includes(body.quality) ? body.quality : "standard";
@@ -2871,7 +2888,8 @@ const server = http.createServer(async (req, res) => {
       const body = await readJsonBody(req, res);
       return await handleChatCompletions(req, res, body);
     }
-    if (req.method === "POST" && p === "/v1/image/generation") {
+    // native route + OpenAI-compatible alias (/v1/images/generations)
+    if (req.method === "POST" && (p === "/v1/image/generation" || p === "/v1/images/generations")) {
       const body = await readJsonBody(req, res);
       return await handleImageGeneration(req, res, body);
     }
